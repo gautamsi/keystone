@@ -50,8 +50,8 @@ exports.User = {
     },
     ...(process.env.IFRAMELY_API_KEY
       ? {
-          portfolio: { type: OEmbed, adapter: iframelyAdapter },
-        }
+        portfolio: { type: OEmbed, adapter: iframelyAdapter },
+      }
       : {}),
     password: { type: Password },
     isAdmin: { type: Checkbox },
@@ -65,6 +65,7 @@ const isAdmin = ({ authentication: { item: user } }) => !!user && !!user.isAdmin
 exports.Post = {
   fields: {
     title: { type: Text },
+    postIdCopy: { type: Text },
     slug: { type: Slug, from: 'title' },
     author: {
       type: AuthedRelationship,
@@ -103,18 +104,29 @@ exports.Post = {
     },
   },
   hooks: {
+    resolveInput: ({ operation, originalInput, existingItem, resolvedData }) => {
+      if (operation === 'update') {
+        resolvedData.postIdCopy = existingItem.id;
+      }
+      return resolvedData;
+    },
     afterDelete: ({ existingItem }) => {
       if (existingItem.image) {
         fileAdapter.delete(existingItem.image);
       }
     },
+    afterChange: ({ operation, existingItem, updatedItem }) => {
+      if (operation === 'update') {
+        console.log(`original id and slug: [${existingItem.id}, ${existingItem.slug}], updated id and slug: [${updatedItem.id}, ${updatedItem.slug}]`)
+      }
+    },
   },
   adminConfig: {
     defaultPageSize: 20,
-    defaultColumns: 'title, status',
+    defaultColumns: 'title, status, postIdCopy',
     defaultSort: 'title',
   },
-  labelResolver: item => item.title,
+  labelResolver: item => item.id,
 };
 
 exports.PostCategory = {
