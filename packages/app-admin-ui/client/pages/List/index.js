@@ -45,7 +45,7 @@ export function ListLayout(props) {
   const [sortBy, handleSortChange] = useListSort();
   const [selectedItems, onSelectChange] = useListSelect(items);
 
-  const { listHeaderActions } = useUIHooks();
+  const { listHeaderActions } = useUIHooks(list.key);
 
   // Misc.
   // ------------------------------

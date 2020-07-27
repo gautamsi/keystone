@@ -23,7 +23,7 @@ const Container = ({ children }) => {
 
 export const ItemTitle = memo(function ItemTitle({ titleText }) {
   const { list } = useList();
-  const { itemHeaderActions } = useUIHooks();
+  const { itemHeaderActions } = useUIHooks(list.key);
   return (
     <Container>
       <PageTitle>{titleText}</PageTitle>
