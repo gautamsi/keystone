@@ -19,6 +19,7 @@
     "@keystone-next/fields-document": "^2.0.0",
     "@keystone-next/keystone": "^10.0.0",
     "@keystone-next/types": "^13.0.0",
+    "@keystone-next/wysiwyg": "^0.0.0",
     "@keystone-ui/core": "^2.0.0",
     "@keystone-ui/fields": "^2.0.0",
     "@keystone-ui/icons": "^2.0.0",

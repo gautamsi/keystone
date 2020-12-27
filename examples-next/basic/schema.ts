@@ -10,6 +10,7 @@ import {
 } from '@keystone-next/fields';
 import { document } from '@keystone-next/fields-document';
 // import { cloudinaryImage } from '@keystone-next/cloudinary';
+import { wysiwyg } from '@keystone-next/wysiwyg';
 import { KeystoneListsAPI } from '@keystone-next/types';
 import { KeystoneListsTypeInfo } from './.keystone/schema-types';
 import { componentBlocks } from './admin/fieldViews/Content';
@@ -138,6 +139,7 @@ export const lists = createSchema({
           displayMode: 'segmented-control',
         },
       }),
+      html: wysiwyg({ isRequired: true, editorConfig: { someConfig: 'value' } }),
       content: document({
         ui: { views: require.resolve('./admin/fieldViews/Content.tsx') },
         relationships: {

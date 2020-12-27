@@ -88,6 +88,16 @@ export const createExpressServer = async (
       await createAdminUIServer(config.ui, createContext, dev, projectAdminPath, sessionStrategy)
     );
   }
+  const apps = ([...system.keystone.registeredTypes])
+  .filter(({ prepareMiddleware } = {}) => !!prepareMiddleware)
+  .map(app =>
+    app.prepareMiddleware({
+      keystone: this,
+      dev,
+      distDir: 'dist',
+    })
+  );
+  server.use(apps);
 
   return server;
 };
