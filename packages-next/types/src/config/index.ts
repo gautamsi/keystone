@@ -70,7 +70,7 @@ export type DatabaseConfig = {
           provider: 'postgresql';
         }
     )
-  | (
+    | (
       | {
           /** @deprecated The `adapter` option is deprecated. Please use `{ provider: 'sqlite' }` */
           adapter: 'prisma_sqlite';
@@ -80,6 +80,11 @@ export type DatabaseConfig = {
           /** @deprecated The `adapter` option is deprecated. Please use `{ provider: 'sqlite' }` */
           adapter?: undefined;
           provider: 'sqlite';
+        }
+    )
+    | (
+      | {
+          provider: 'mongodb';
         }
     )
 );

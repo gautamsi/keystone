@@ -48,7 +48,7 @@ function printScalarDefaultValue(defaultValue: ScalarDBFieldDefault): string {
     return `${defaultValue.kind}()`;
   }
   if (defaultValue.kind === 'dbgenerated') {
-    return `dbgenerated(${JSON.stringify(defaultValue.value)})`;
+    return `dbgenerated(${defaultValue.value ? JSON.stringify(defaultValue.value): ''})`;
   }
   assertNever(defaultValue);
 }
@@ -202,6 +202,7 @@ export function printPrismaSchema(
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["mongodb"]
   output = "${clientDir}"
 }
 \n`;

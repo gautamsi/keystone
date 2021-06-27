@@ -79,7 +79,7 @@ type BigIntLiteralDefault = { kind: 'literal'; value: bigint };
 type BooleanLiteralDefault = { kind: 'literal'; value: boolean };
 type StringLiteralDefault = { kind: 'literal'; value: string };
 // https://github.com/prisma/prisma-engines/blob/98490f4bb05f4a47cd715617154a06c2c0d05756/libs/datamodel/connectors/dml/src/default_value.rs#L183-L194
-type DBGeneratedDefault = { kind: 'dbgenerated'; value: string };
+type DBGeneratedDefault = { kind: 'dbgenerated'; value?: string };
 type AutoIncrementDefault = { kind: 'autoincrement' };
 type NowDefault = { kind: 'now' };
 type UuidDefault = { kind: 'uuid' };
