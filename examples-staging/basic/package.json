@@ -4,17 +4,19 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "keystone-next dev",
+    "dev": "cross-env NODE_OPTIONS=\"-r dotenv/config\" keystone-next dev",
     "start": "keystone-next start",
     "build": "keystone-next build"
   },
   "dependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@graphql-tools/merge": "^6.2.14",
     "@keystone-next/auth": "^29.0.0",
     "@keystone-next/document-renderer": "^4.0.0",
     "@keystone-next/fields": "^12.0.0",
     "@keystone-next/fields-document": "^7.0.2",
+    "@keystone-next/fields-s3-image": "^7.0.2",
     "@keystone-next/keystone": "^22.0.0",
     "@keystone-next/types": "^22.0.0",
     "@keystone-ui/core": "^3.1.1",
@@ -24,6 +26,7 @@
     "@preconstruct/next": "^3.0.0",
     "@types/react": "^17.0.14",
     "apollo-server-micro": "^2.25.2",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "graphql-tag": "^2.12.5",
     "next": "^10.2.3",
