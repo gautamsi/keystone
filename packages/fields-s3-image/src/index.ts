@@ -13,7 +13,7 @@ import {
 } from '@keystone-next/types';
 import { FileUpload } from 'graphql-upload';
 import { AssetMode, getImageRef, SUPPORTED_IMAGE_EXTENSIONS } from './lib/utils';
-import { getDataFromRef, getDataFromStream } from './lib/createImagesContext';
+import { getDataFromRef, getDataFromStream, getSrc } from './lib/createImagesContext';
 
 const views = path.join(
   path.dirname(require.resolve('@keystone-next/fields-s3-image/package.json')),
@@ -69,10 +69,7 @@ const imageOutputFields = schema.fields<ImageData>()({
   src: schema.field({
     type: schema.nonNull(schema.String),
     resolve(data, args, context) {
-      if (!context.images) {
-        throw new Error('Image context is undefined');
-      }
-      return context.images.getSrc(data.mode, data.id, data.extension);
+      return getSrc(data.mode, data.id, data.extension);
     },
   }),
 });
@@ -153,7 +150,7 @@ export const s3Image =
             width === null ||
             id === null ||
             mode === null ||
-            (mode !== 'local' && mode !== 'keystone-cloud')
+            (mode !== 's3')
           ) {
             return null;
           }

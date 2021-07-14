@@ -1,6 +1,6 @@
 import { createSchema, list } from '@keystone-next/keystone/schema';
 import { select, relationship, text, timestamp } from '@keystone-next/fields';
-// import { s3Image } from '@keystone-next/fields-s3-image';
+import { s3Image } from '@keystone-next/fields-s3-image';
 
 export const lists = createSchema({
   Post: list({
@@ -14,7 +14,7 @@ export const lists = createSchema({
         ],
       }),
       content: text(),
-      // image: s3Image(),
+      image: s3Image(),
       publishDate: timestamp(),
       author: relationship({ ref: 'Author.posts', many: false }),
     },

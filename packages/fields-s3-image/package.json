@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.21.0",
+    "@aws-sdk/lib-storage": "^3.21.0",
     "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@babel/runtime": "^7.14.6",
     "@keystone-next/types": "^22.0.0",

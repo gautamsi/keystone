@@ -6,6 +6,7 @@ type Post {
   title: String
   status: PostStatusType
   content: String
+  image: ImageFieldOutput
   publishDate: String
   author: Author
 }
@@ -13,6 +14,33 @@ type Post {
 enum PostStatusType {
   draft
   published
+}
+
+interface ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  src: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
+}
+
+type LocalImageFieldOutput implements ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  ref: String!
+  src: String!
 }
 
 input PostWhereInput {
@@ -88,9 +116,20 @@ input PostUpdateInput {
   title: String
   status: PostStatusType
   content: String
+  image: ImageFieldInput
   publishDate: String
   author: AuthorRelateToOneInput
 }
+
+input ImageFieldInput {
+  upload: Upload
+  ref: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input AuthorRelateToOneInput {
   create: AuthorCreateInput
@@ -108,6 +147,7 @@ input PostCreateInput {
   title: String
   status: PostStatusType
   content: String
+  image: ImageFieldInput
   publishDate: String
   author: AuthorRelateToOneInput
 }
