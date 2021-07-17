@@ -454,6 +454,15 @@
   dependencies:
     tslib "^2.0.0"
 
+"@aws-sdk/lib-storage@^3.21.0":
+  version "3.21.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/lib-storage/-/lib-storage-3.21.0.tgz#2f62a228cdb88492db91da2ab5a169e40cb3ee2b"
+  integrity sha512-8py1fCekjo+5X98xfRReBl8X7ocexkz17NwtC3ZRcGZ4HAPmVJLaGCXVPzOJgugyXvpKyPGQ+enVmveRrfxsKQ==
+  dependencies:
+    buffer "^5.6.0"
+    stream-browserify "^3.0.0"
+    tslib "^2.0.0"
+
 "@aws-sdk/md5-js@3.20.0":
   version "3.20.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/md5-js/-/md5-js-3.20.0.tgz#4f0587c9dd0e8838c996f3ac95ad743d7e17d382"
@@ -5117,7 +5126,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.1.0, buffer@^5.5.0:
+buffer@^5.1.0, buffer@^5.5.0, buffer@^5.6.0:
   version "5.7.1"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.7.1.tgz#ba62e7c13133053582197160851a8f648e99eed0"
   integrity sha512-EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==
@@ -13017,7 +13026,7 @@ static-extend@^0.1.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
-stream-browserify@3.0.0:
+stream-browserify@3.0.0, stream-browserify@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-3.0.0.tgz#22b0a2850cdf6503e73085da1fc7b7d0c2122f2f"
   integrity sha512-H73RAHsVBapbim0tU2JwwOiXUj+fikfiaoYAKHF3VJfA0pe2BCzkhAHBlLG6REzE+2WNZcxOXjK7lkso+9euLA==
