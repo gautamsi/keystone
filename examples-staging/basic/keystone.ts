@@ -1,7 +1,7 @@
 import { config } from '@keystone-next/keystone/schema';
 import { statelessSessions } from '@keystone-next/keystone/session';
 import { createAuth } from '@keystone-next/auth';
-
+// import 'dotenv/config';
 import { lists, extendGraphqlSchema } from './schema';
 
 let sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';

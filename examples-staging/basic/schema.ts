@@ -15,6 +15,7 @@ import { document } from '@keystone-next/fields-document';
 import { KeystoneListsAPI, schema } from '@keystone-next/types';
 import { componentBlocks } from './admin/fieldViews/Content';
 import { KeystoneListsTypeInfo } from '.keystone/types';
+import { s3Image } from '@keystone-next/fields-s3-image';
 
 // TODO: Can we generate this type based on sessionData in the main config?
 type AccessArgs = {
@@ -47,7 +48,7 @@ export const lists = createSchema({
       /** Email is used to log into the system. */
       email: text({ isRequired: true, isUnique: true }),
       /** Avatar upload for the users profile, stored locally */
-      avatar: image(),
+      avatar: s3Image(),
       attachment: file(),
       /** Used to log in. */
       password: password(),
