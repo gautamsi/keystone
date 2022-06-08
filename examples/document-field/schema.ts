@@ -15,6 +15,29 @@ export const lists = {
         ],
       }),
       content: document({
+        ui: { views: require.resolve('./fields/content/views.tsx') },
+        // We want to have support a fully featured document editor for our
+        // authors, so we're enabling all of the formatting abilities and
+        // providing 1, 2 or 3 column layouts.
+        formatting: true,
+        dividers: true,
+        links: true,
+        layouts: [
+          [1, 1],
+          [1, 1, 1],
+        ],
+        // We want to support twitter-style mentions in blogs, so we add an
+        // inline relationship which references the `Author` list.
+        relationships: {
+          mention: {
+            listKey: 'Author',
+            label: 'Mention', // This will display in the Admin UI toolbar behind the `+` icon
+            selection: 'id name', // These fields will be available to the renderer
+          },
+        },
+      }),
+      content2: document({
+        ui: { views: require.resolve('./fields/content/views.tsx') },
         // We want to have support a fully featured document editor for our
         // authors, so we're enabling all of the formatting abilities and
         // providing 1, 2 or 3 column layouts.
