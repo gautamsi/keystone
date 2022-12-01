@@ -1,0 +1,1 @@
+export { getApp } from '@keystone-6/k6js'

@@ -1,0 +1,4 @@
+{
+  "main": "dist/keystone-6-k6js-scripts.cjs.js",
+  "module": "dist/keystone-6-k6js-scripts.esm.js"
+}

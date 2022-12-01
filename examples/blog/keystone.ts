@@ -14,4 +14,7 @@ export default config({
     },
   },
   lists,
+  ui: {
+    customApp: './admin/customApp.tsx',
+  }
 });
