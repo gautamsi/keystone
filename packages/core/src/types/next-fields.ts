@@ -136,6 +136,7 @@ export type RelationDBField<Mode extends 'many' | 'one'> = {
   field?: string;
   mode: Mode;
   foreignKey?: { one: true | { map: string }; many: undefined }[Mode];
+  reference?: { one: string; many: undefined }[Mode];
   relationName?: { one: undefined; many: string }[Mode];
   extendPrismaSchema?: (field: string) => string;
 };

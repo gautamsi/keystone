@@ -4,8 +4,8 @@ import { lists } from './schema';
 
 export default config({
   db: {
-    provider: 'sqlite',
-    url: process.env.DATABASE_URL || 'file:./keystone-example.db',
+    provider: 'postgresql',
+    url: 'postgresql://postgres:postgrts@localhost/keystone-nextjs-auth-example',
 
     // WARNING: this is only needed for our monorepo examples, dont do this
     ...fixPrismaPath,

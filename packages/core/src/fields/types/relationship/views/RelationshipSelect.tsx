@@ -104,6 +104,7 @@ export const RelationshipSelect = ({
   isDisabled,
   isLoading,
   labelField,
+  idField,
   searchFields,
   list,
   placeholder,
@@ -116,6 +117,7 @@ export const RelationshipSelect = ({
   isDisabled: boolean;
   isLoading?: boolean;
   labelField: string;
+  idField: string;
   searchFields: string[];
   list: ListMeta;
   placeholder?: string;

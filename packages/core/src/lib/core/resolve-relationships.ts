@@ -14,6 +14,7 @@ export type ResolvedRelationDBField =
     })
   | (BaseResolvedRelationDBField & {
       mode: 'one';
+    reference?: string;
       foreignIdField: { kind: 'none' } | { kind: 'owned' | 'owned-unique'; map: string };
     });
 
@@ -36,7 +37,7 @@ type Rel = {
 };
 
 type RelWithoutForeignKeyAndName = Omit<Rel, 'field'> & {
-  field: Omit<RelationDBField<'many' | 'one'>, 'foreignKey' | 'relationName'>;
+  field: Omit<RelationDBField<'many' | 'one'>, 'foreignKey' | 'relationName' | 'reference'>;
 };
 
 function sortRelationships(left: Rel, right: Rel): readonly [Rel, RelWithoutForeignKeyAndName] {
@@ -213,6 +214,7 @@ export function resolveRelationships(
           continue;
         }
         const relationName = `${leftRel.listKey}_${leftRel.fieldPath}`;
+        const reference = leftRel.field.reference;
         resolvedLists[leftRel.listKey][leftRel.fieldPath] = {
           kind: 'relation',
           mode: 'one',
@@ -226,8 +228,10 @@ export function resolveRelationships(
                 ? leftRel.field.foreignKey?.map
                 : leftRel.fieldPath,
           },
+          reference,
           relationName,
         };
+        debugger;
         resolvedLists[rightRel.listKey][rightRel.fieldPath] = {
           kind: 'relation',
           mode: 'many',
@@ -264,7 +268,9 @@ export function resolveRelationships(
           relationName,
         };
       } else {
+        debugger;
         const relationName = `${listKey}_${fieldPath}`;
+        const reference = field.reference;
         resolvedLists[field.list][foreignFieldPath] = {
           kind: 'relation',
           mode: 'many',
@@ -283,6 +289,7 @@ export function resolveRelationships(
             map: typeof field.foreignKey === 'object' ? field.foreignKey?.map : fieldPath,
           },
           relationName,
+          reference,
           mode: 'one',
         };
       }

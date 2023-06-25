@@ -9,6 +9,7 @@ type Post {
   content: Post_content_Document
   publishDate: DateTime
   author: Author
+  author2: Author
 }
 
 enum PostStatusType {
@@ -37,6 +38,7 @@ input PostWhereInput {
   status: PostStatusTypeNullableFilter
   publishDate: DateTimeNullableFilter
   author: AuthorWhereInput
+  author2: AuthorWhereInput
 }
 
 input IDFilter {
@@ -61,7 +63,13 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 input NestedStringFilter {
@@ -116,6 +124,7 @@ input PostUpdateInput {
   content: JSON
   publishDate: DateTime
   author: AuthorRelateToOneForUpdateInput
+  author2: AuthorRelateToOneForUpdateInput
 }
 
 input AuthorRelateToOneForUpdateInput {
@@ -136,6 +145,7 @@ input PostCreateInput {
   content: JSON
   publishDate: DateTime
   author: AuthorRelateToOneForCreateInput
+  author2: AuthorRelateToOneForCreateInput
 }
 
 input AuthorRelateToOneForCreateInput {
@@ -328,11 +338,6 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
 enum KeystoneAdminUIFieldMetaItemViewFieldPosition {
   form
   sidebar
-}
-
-enum QueryMode {
-  default
-  insensitive
 }
 
 type KeystoneAdminUIFieldGroupMeta {

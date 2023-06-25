@@ -38,7 +38,8 @@ export const lists = {
         },
       }),
       publishDate: timestamp(),
-      author: relationship({ ref: 'Author.posts', many: false }),
+      author: relationship({ ref: 'Author.posts', many: false, db: { reference: 'email', extendPrismaSchema: f => { debugger; return f; } } }),
+      author2: relationship({ ref: 'Author', many: false, db: { reference: 'email', extendPrismaSchema: f => { debugger; return f; } } }),
     },
   }),
   Author: list({

@@ -1,4 +1,5 @@
 import { ScalarDBField, ScalarDBFieldDefault, DatabaseProvider } from '../../types';
+import { upcase } from '../utils';
 import { ResolvedDBField } from './resolve-relationships';
 import { InitialisedList } from './types-for-lists';
 import { areArraysEqual, getDBFieldKeyForFieldOnMultiField } from './utils';
@@ -89,13 +90,14 @@ function printField(
     if (field.foreignIdField.kind === 'none') {
       return `${fieldPath} ${field.list}? @relation("${field.relationName}")`;
     }
-    const relationIdFieldPath = `${fieldPath}Id`;
-    const relationField = `${fieldPath} ${field.list}? @relation("${field.relationName}", fields: [${relationIdFieldPath}], references: [id])`;
+    const reference = field.reference || 'id';
+    const relationIdFieldPath = `${fieldPath}${upcase(reference)}`;
+    const relationField = `${fieldPath} ${field.list}? @relation("${field.relationName}", fields: [${relationIdFieldPath}], references: [${reference}])`;
 
     const foreignList = lists[field.list];
-    const foreignIdField = foreignList.resolvedDbFields.id;
+    const foreignIdField = foreignList.resolvedDbFields[reference];
 
-    assertDbFieldIsValidForIdField(foreignList.listKey, foreignList.isSingleton, foreignIdField);
+    assertDbFieldIsValidForIdField(foreignList.listKey, foreignList.isSingleton, foreignIdField, !!reference);
     const nativeType = printNativeType(foreignIdField.nativeType, datasourceName);
     const index = printIndex(
       relationIdFieldPath,
@@ -155,7 +157,8 @@ function collectEnums(lists: Record<string, InitialisedList>) {
 function assertDbFieldIsValidForIdField(
   listKey: string,
   isSingleton: boolean,
-  field: ResolvedDBField
+  field: ResolvedDBField,
+  isReferenced: boolean = false
 ): asserts field is ScalarDBField<'Int' | 'String', 'required'> {
   if (field.kind !== 'scalar') {
     throw new Error(
@@ -175,7 +178,13 @@ function assertDbFieldIsValidForIdField(
       } field`
     );
   }
-  if (field.index !== undefined) {
+  if (isReferenced) {
+    if (field.index !== 'unique') {
+      throw new Error(
+        `id fields must be unique but the id field for the ${listKey} list is not`
+      );
+    }
+  } else if (field.index !== undefined) {
     throw new Error(
       `id fields must not specify indexes themselves but the id field for the ${listKey} list specifies an index`
     );

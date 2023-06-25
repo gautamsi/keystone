@@ -349,6 +349,7 @@ type RelationshipController = FieldController<
   refListKey: string;
   refFieldKey?: string;
   refLabelField: string;
+  refIdField: string;
   refSearchFields: string[];
   hideCreate: boolean;
   many: boolean;
@@ -362,6 +363,7 @@ export const controller = (
       many: boolean;
       hideCreate: boolean;
       refLabelField: string;
+      refIdField: string;
       refSearchFields: string[];
     } & (
       | {
@@ -396,7 +398,7 @@ export const controller = (
 
   const refLabelField = config.fieldMeta.refLabelField;
   const refSearchFields = config.fieldMeta.refSearchFields;
-
+  const refIdField = config.fieldMeta.refIdField;
   return {
     refFieldKey: config.fieldMeta.refFieldKey,
     many: config.fieldMeta.many,
@@ -406,6 +408,7 @@ export const controller = (
     description: config.description,
     display: config.fieldMeta.displayMode === 'count' ? 'count' : 'cards-or-select',
     refLabelField,
+    refIdField,
     refSearchFields,
     refListKey: config.fieldMeta.refListKey,
     graphqlSelection:
@@ -511,6 +514,7 @@ export const controller = (
             controlShouldRenderValue
             list={foreignList}
             labelField={refLabelField}
+            idField={refIdField}
             searchFields={refSearchFields}
             isLoading={loading}
             isDisabled={onChange === undefined}
