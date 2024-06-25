@@ -44,7 +44,7 @@ export async function build (
 
   console.log('✨ Building Admin UI')
   await nextBuild(
-    paths.admin,
+    cwd,
     undefined,
     undefined,
     undefined,
