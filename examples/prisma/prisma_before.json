@@ -1,0 +1,1410 @@
+{
+  "datamodel": {
+    "enums": [],
+    "models": [
+      {
+        "name": "List1",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_list1",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_list1",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List2",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_list2s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_list2s",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List3",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "user",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List3_user",
+            "relationFromFields": [
+              "userId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "userId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": true,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List4",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "user",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List4_user",
+            "relationFromFields": [
+              "userId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "userId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List5",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "users",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List5_users",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List6",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "users",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List6_users",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_list6s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_list6s",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List7",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "user",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List7_user",
+            "relationFromFields": [
+              "userId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "userId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_list7",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_list7",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "List8",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": {
+              "name": "cuid",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "user",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "List8_user",
+            "relationFromFields": [
+              "userId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "userId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_list8",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_list8",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "PhoneNumber",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "BigInt",
+            "default": {
+              "name": "autoincrement",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "user",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "PhoneNumber_user",
+            "relationFromFields": [
+              "userId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "userId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "type",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "value",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_User_phoneNumbers",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "User_phoneNumbers",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "Post",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "BigInt",
+            "default": {
+              "name": "autoincrement",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "title",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "status",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "draft",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "content",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "Json",
+            "default": "[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "publishDate",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "DateTime",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "author",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "User",
+            "relationName": "Post_author",
+            "relationFromFields": [
+              "authorId"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "authorId",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "BigInt",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      },
+      {
+        "name": "User",
+        "dbName": null,
+        "fields": [
+          {
+            "name": "id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": true,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "BigInt",
+            "default": {
+              "name": "autoincrement",
+              "args": []
+            },
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "name",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "email",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": true,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "avatar_filesize",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "Int",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "avatar_extension",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "avatar_width",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "Int",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "avatar_height",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "Int",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "avatar_id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "attachment_filesize",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "Int",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "attachment_filename",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "password",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "isAdmin",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "Boolean",
+            "default": false,
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "roles",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": true,
+            "type": "String",
+            "default": "",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "phoneNumbers",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "PhoneNumber",
+            "relationName": "User_phoneNumbers",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "posts",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "Post",
+            "relationName": "Post_author",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list1",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List1",
+            "relationName": "User_list1",
+            "relationFromFields": [
+              "list1Id"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list1Id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list2s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List2",
+            "relationName": "User_list2s",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list3",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List3",
+            "relationName": "List3_user",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list4s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List4",
+            "relationName": "List4_user",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list5s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List5",
+            "relationName": "List5_users",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list6s",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List6",
+            "relationName": "User_list6s",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list7",
+            "kind": "object",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List7",
+            "relationName": "User_list7",
+            "relationFromFields": [
+              "list7Id"
+            ],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list7Id",
+            "kind": "scalar",
+            "isList": false,
+            "isRequired": false,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": true,
+            "hasDefaultValue": false,
+            "type": "String",
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "list8",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List8",
+            "relationName": "User_list8",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_List6_users",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List6",
+            "relationName": "List6_users",
+            "relationFromFields": [],
+            "relationToFields": [
+              "id"
+            ],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_List7_user",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List7",
+            "relationName": "List7_user",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_List8_user",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "List8",
+            "relationName": "List8_user",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          },
+          {
+            "name": "from_PhoneNumber_user",
+            "kind": "object",
+            "isList": true,
+            "isRequired": true,
+            "isUnique": false,
+            "isId": false,
+            "isReadOnly": false,
+            "hasDefaultValue": false,
+            "type": "PhoneNumber",
+            "relationName": "PhoneNumber_user",
+            "relationFromFields": [],
+            "relationToFields": [],
+            "isGenerated": false,
+            "isUpdatedAt": false
+          }
+        ],
+        "primaryKey": null,
+        "uniqueFields": [],
+        "uniqueIndexes": [],
+        "isGenerated": false
+      }
+    ],
+    "types": []
+  },
+  "schema": {
+    "enumTypes": {
+      "prisma": [
+        {
+          "name": "JsonNullValueFilter",
+          "values": [
+            "DbNull",
+            "JsonNull",
+            "AnyNull"
+          ]
+        },
+        {
+          "name": "JsonNullValueInput",
+          "values": [
+            "JsonNull"
+          ]
+        },
+        {
+          "name": "List1ScalarFieldEnum",
+          "values": [
+            "id",
+            "name"
+          ]
+        },
+        {
+          "name": "List2ScalarFieldEnum",
+          "values": [
+            "id",
+            "name"
+          ]
+        },
+        {
+          "name": "List3ScalarFieldEnum",
+          "values": [
+            "id",
+            "name",
+            "userId"
+          ]
+        },
+        {
+          "name": "List4ScalarFieldEnum",
+          "values": [
+            "id",
+            "name",
+            "userId"
+          ]
+        },
+        {
+          "name": "List5ScalarFieldEnum",
+          "values": [
+            "id",
+            "name"
+          ]
+        },
+        {
+          "name": "List6ScalarFieldEnum",
+          "values": [
+            "id",
+            "name"
+          ]
+        },
+        {
+          "name": "List7ScalarFieldEnum",
+          "values": [
+            "id",
+            "name",
+            "userId"
+          ]
+        },
+        {
+          "name": "List8ScalarFieldEnum",
+          "values": [
+            "id",
+            "name",
+            "userId"
+          ]
+        },
+        {
+          "name": "PhoneNumberScalarFieldEnum",
+          "values": [
+            "id",
+            "userId",
+            "type",
+            "value"
+          ]
+        },
+        {
+          "name": "PostScalarFieldEnum",
+          "values": [
+            "id",
+            "title",
+            "status",
+            "content",
+            "publishDate",
+            "authorId"
+          ]
+        },
+        {
+          "name": "QueryMode",
+          "values": [
+            "default",
+            "insensitive"
+          ]
+        },
+        {
+          "name": "SortOrder",
+          "values": [
+            "asc",
+            "desc"
+          ]
+        },
+        {
+          "name": "TransactionIsolationLevel",
+          "values": [
+            "ReadUncommitted",
+            "ReadCommitted",
+            "RepeatableRead",
+            "Serializable"
+          ]
+        },
+        {
+          "name": "UserScalarFieldEnum",
+          "values": [
+            "id",
+            "name",
+            "email",
+            "avatar_filesize",
+            "avatar_extension",
+            "avatar_width",
+            "avatar_height",
+            "avatar_id",
+            "attachment_filesize",
+            "attachment_filename",
+            "password",
+            "isAdmin",
+            "roles",
+            "list1Id",
+            "list7Id"
+          ]
+        }
+      ]
+    }
+  }
+}

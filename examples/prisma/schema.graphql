@@ -15,6 +15,19 @@ type User {
   posts(where: PostWhereInput! = {}, orderBy: [PostOrderByInput!]! = [], take: Int, skip: Int! = 0): [Post!]
   postsCount(where: PostWhereInput! = {}): Int
   randomNumber: Float
+  list1: List1
+  list2s(where: List2WhereInput! = {}, orderBy: [List2OrderByInput!]! = [], take: Int, skip: Int! = 0): [List2!]
+  list2sCount(where: List2WhereInput! = {}): Int
+  list3: List3
+  list4s(where: List4WhereInput! = {}, orderBy: [List4OrderByInput!]! = [], take: Int, skip: Int! = 0): [List4!]
+  list4sCount(where: List4WhereInput! = {}): Int
+  list5s(where: List5WhereInput! = {}, orderBy: [List5OrderByInput!]! = [], take: Int, skip: Int! = 0): [List5!]
+  list5sCount(where: List5WhereInput! = {}): Int
+  list6s(where: List6WhereInput! = {}, orderBy: [List6OrderByInput!]! = [], take: Int, skip: Int! = 0): [List6!]
+  list6sCount(where: List6WhereInput! = {}): Int
+  list7: List7
+  list8(where: List8WhereInput! = {}, orderBy: [List8OrderByInput!]! = [], take: Int, skip: Int! = 0): [List8!]
+  list8Count(where: List8WhereInput! = {}): Int
 }
 
 type ImageFieldOutput {
@@ -60,6 +73,14 @@ input UserWhereInput {
   roles: StringFilter
   phoneNumbers: PhoneNumberManyRelationFilter
   posts: PostManyRelationFilter
+  list1: List1WhereInput
+  list2s: List2ManyRelationFilter
+  list3: List3WhereInput
+  list4s: List4ManyRelationFilter
+  list5s: List5ManyRelationFilter
+  list6s: List6ManyRelationFilter
+  list7: List7WhereInput
+  list8: List8ManyRelationFilter
 }
 
 input IDFilter {
@@ -84,7 +105,13 @@ input StringFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringFilter
+}
+
+enum QueryMode {
+  default
+  insensitive
 }
 
 input NestedStringFilter {
@@ -122,6 +149,36 @@ input PostManyRelationFilter {
   none: PostWhereInput
 }
 
+input List2ManyRelationFilter {
+  every: List2WhereInput
+  some: List2WhereInput
+  none: List2WhereInput
+}
+
+input List4ManyRelationFilter {
+  every: List4WhereInput
+  some: List4WhereInput
+  none: List4WhereInput
+}
+
+input List5ManyRelationFilter {
+  every: List5WhereInput
+  some: List5WhereInput
+  none: List5WhereInput
+}
+
+input List6ManyRelationFilter {
+  every: List6WhereInput
+  some: List6WhereInput
+  none: List6WhereInput
+}
+
+input List8ManyRelationFilter {
+  every: List8WhereInput
+  some: List8WhereInput
+  none: List8WhereInput
+}
+
 input UserOrderByInput {
   id: OrderDirection
   name: OrderDirection
@@ -145,6 +202,14 @@ input UserUpdateInput {
   roles: String
   phoneNumbers: PhoneNumberRelateToManyForUpdateInput
   posts: PostRelateToManyForUpdateInput
+  list1: List1RelateToOneForUpdateInput
+  list2s: List2RelateToManyForUpdateInput
+  list3: List3RelateToOneForUpdateInput
+  list4s: List4RelateToManyForUpdateInput
+  list5s: List5RelateToManyForUpdateInput
+  list6s: List6RelateToManyForUpdateInput
+  list7: List7RelateToOneForUpdateInput
+  list8: List8RelateToManyForUpdateInput
 }
 
 input ImageFieldInput {
@@ -172,6 +237,59 @@ input PostRelateToManyForUpdateInput {
   connect: [PostWhereUniqueInput!]
 }
 
+input List1RelateToOneForUpdateInput {
+  create: List1CreateInput
+  connect: List1WhereUniqueInput
+  disconnect: Boolean
+}
+
+input List2RelateToManyForUpdateInput {
+  disconnect: [List2WhereUniqueInput!]
+  set: [List2WhereUniqueInput!]
+  create: [List2CreateInput!]
+  connect: [List2WhereUniqueInput!]
+}
+
+input List3RelateToOneForUpdateInput {
+  create: List3CreateInput
+  connect: List3WhereUniqueInput
+  disconnect: Boolean
+}
+
+input List4RelateToManyForUpdateInput {
+  disconnect: [List4WhereUniqueInput!]
+  set: [List4WhereUniqueInput!]
+  create: [List4CreateInput!]
+  connect: [List4WhereUniqueInput!]
+}
+
+input List5RelateToManyForUpdateInput {
+  disconnect: [List5WhereUniqueInput!]
+  set: [List5WhereUniqueInput!]
+  create: [List5CreateInput!]
+  connect: [List5WhereUniqueInput!]
+}
+
+input List6RelateToManyForUpdateInput {
+  disconnect: [List6WhereUniqueInput!]
+  set: [List6WhereUniqueInput!]
+  create: [List6CreateInput!]
+  connect: [List6WhereUniqueInput!]
+}
+
+input List7RelateToOneForUpdateInput {
+  create: List7CreateInput
+  connect: List7WhereUniqueInput
+  disconnect: Boolean
+}
+
+input List8RelateToManyForUpdateInput {
+  disconnect: [List8WhereUniqueInput!]
+  set: [List8WhereUniqueInput!]
+  create: [List8CreateInput!]
+  connect: [List8WhereUniqueInput!]
+}
+
 input UserUpdateArgs {
   where: UserWhereUniqueInput!
   data: UserUpdateInput!
@@ -187,6 +305,14 @@ input UserCreateInput {
   roles: String
   phoneNumbers: PhoneNumberRelateToManyForCreateInput
   posts: PostRelateToManyForCreateInput
+  list1: List1RelateToOneForCreateInput
+  list2s: List2RelateToManyForCreateInput
+  list3: List3RelateToOneForCreateInput
+  list4s: List4RelateToManyForCreateInput
+  list5s: List5RelateToManyForCreateInput
+  list6s: List6RelateToManyForCreateInput
+  list7: List7RelateToOneForCreateInput
+  list8: List8RelateToManyForCreateInput
 }
 
 input PhoneNumberRelateToManyForCreateInput {
@@ -197,6 +323,381 @@ input PhoneNumberRelateToManyForCreateInput {
 input PostRelateToManyForCreateInput {
   create: [PostCreateInput!]
   connect: [PostWhereUniqueInput!]
+}
+
+input List1RelateToOneForCreateInput {
+  create: List1CreateInput
+  connect: List1WhereUniqueInput
+}
+
+input List2RelateToManyForCreateInput {
+  create: [List2CreateInput!]
+  connect: [List2WhereUniqueInput!]
+}
+
+input List3RelateToOneForCreateInput {
+  create: List3CreateInput
+  connect: List3WhereUniqueInput
+}
+
+input List4RelateToManyForCreateInput {
+  create: [List4CreateInput!]
+  connect: [List4WhereUniqueInput!]
+}
+
+input List5RelateToManyForCreateInput {
+  create: [List5CreateInput!]
+  connect: [List5WhereUniqueInput!]
+}
+
+input List6RelateToManyForCreateInput {
+  create: [List6CreateInput!]
+  connect: [List6WhereUniqueInput!]
+}
+
+input List7RelateToOneForCreateInput {
+  create: List7CreateInput
+  connect: List7WhereUniqueInput
+}
+
+input List8RelateToManyForCreateInput {
+  create: [List8CreateInput!]
+  connect: [List8WhereUniqueInput!]
+}
+
+type List1 {
+  id: ID!
+  name: String
+}
+
+input List1WhereUniqueInput {
+  id: ID
+}
+
+input List1WhereInput {
+  AND: [List1WhereInput!]
+  OR: [List1WhereInput!]
+  NOT: [List1WhereInput!]
+  id: IDFilter
+  name: StringFilter
+}
+
+input List1OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List1UpdateInput {
+  name: String
+}
+
+input List1UpdateArgs {
+  where: List1WhereUniqueInput!
+  data: List1UpdateInput!
+}
+
+input List1CreateInput {
+  name: String
+}
+
+type List2 {
+  id: ID!
+  name: String
+}
+
+input List2WhereUniqueInput {
+  id: ID
+}
+
+input List2WhereInput {
+  AND: [List2WhereInput!]
+  OR: [List2WhereInput!]
+  NOT: [List2WhereInput!]
+  id: IDFilter
+  name: StringFilter
+}
+
+input List2OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List2UpdateInput {
+  name: String
+}
+
+input List2UpdateArgs {
+  where: List2WhereUniqueInput!
+  data: List2UpdateInput!
+}
+
+input List2CreateInput {
+  name: String
+}
+
+type List3 {
+  id: ID!
+  name: String
+  user: User
+}
+
+input List3WhereUniqueInput {
+  id: ID
+}
+
+input List3WhereInput {
+  AND: [List3WhereInput!]
+  OR: [List3WhereInput!]
+  NOT: [List3WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  user: UserWhereInput
+}
+
+input List3OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List3UpdateInput {
+  name: String
+  user: UserRelateToOneForUpdateInput
+}
+
+input UserRelateToOneForUpdateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+}
+
+input List3UpdateArgs {
+  where: List3WhereUniqueInput!
+  data: List3UpdateInput!
+}
+
+input List3CreateInput {
+  name: String
+  user: UserRelateToOneForCreateInput
+}
+
+input UserRelateToOneForCreateInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+type List4 {
+  id: ID!
+  name: String
+  user: User
+}
+
+input List4WhereUniqueInput {
+  id: ID
+}
+
+input List4WhereInput {
+  AND: [List4WhereInput!]
+  OR: [List4WhereInput!]
+  NOT: [List4WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  user: UserWhereInput
+}
+
+input List4OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List4UpdateInput {
+  name: String
+  user: UserRelateToOneForUpdateInput
+}
+
+input List4UpdateArgs {
+  where: List4WhereUniqueInput!
+  data: List4UpdateInput!
+}
+
+input List4CreateInput {
+  name: String
+  user: UserRelateToOneForCreateInput
+}
+
+type List5 {
+  id: ID!
+  name: String
+  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
+  usersCount(where: UserWhereInput! = {}): Int
+}
+
+input List5WhereUniqueInput {
+  id: ID
+}
+
+input List5WhereInput {
+  AND: [List5WhereInput!]
+  OR: [List5WhereInput!]
+  NOT: [List5WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  users: UserManyRelationFilter
+}
+
+input UserManyRelationFilter {
+  every: UserWhereInput
+  some: UserWhereInput
+  none: UserWhereInput
+}
+
+input List5OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List5UpdateInput {
+  name: String
+  users: UserRelateToManyForUpdateInput
+}
+
+input UserRelateToManyForUpdateInput {
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input List5UpdateArgs {
+  where: List5WhereUniqueInput!
+  data: List5UpdateInput!
+}
+
+input List5CreateInput {
+  name: String
+  users: UserRelateToManyForCreateInput
+}
+
+input UserRelateToManyForCreateInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+type List6 {
+  id: ID!
+  name: String
+  users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
+  usersCount(where: UserWhereInput! = {}): Int
+}
+
+input List6WhereUniqueInput {
+  id: ID
+}
+
+input List6WhereInput {
+  AND: [List6WhereInput!]
+  OR: [List6WhereInput!]
+  NOT: [List6WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  users: UserManyRelationFilter
+}
+
+input List6OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List6UpdateInput {
+  name: String
+  users: UserRelateToManyForUpdateInput
+}
+
+input List6UpdateArgs {
+  where: List6WhereUniqueInput!
+  data: List6UpdateInput!
+}
+
+input List6CreateInput {
+  name: String
+  users: UserRelateToManyForCreateInput
+}
+
+type List7 {
+  id: ID!
+  name: String
+  user: User
+}
+
+input List7WhereUniqueInput {
+  id: ID
+}
+
+input List7WhereInput {
+  AND: [List7WhereInput!]
+  OR: [List7WhereInput!]
+  NOT: [List7WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  user: UserWhereInput
+}
+
+input List7OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List7UpdateInput {
+  name: String
+  user: UserRelateToOneForUpdateInput
+}
+
+input List7UpdateArgs {
+  where: List7WhereUniqueInput!
+  data: List7UpdateInput!
+}
+
+input List7CreateInput {
+  name: String
+  user: UserRelateToOneForCreateInput
+}
+
+type List8 {
+  id: ID!
+  name: String
+  user: User
+}
+
+input List8WhereUniqueInput {
+  id: ID
+}
+
+input List8WhereInput {
+  AND: [List8WhereInput!]
+  OR: [List8WhereInput!]
+  NOT: [List8WhereInput!]
+  id: IDFilter
+  name: StringFilter
+  user: UserWhereInput
+}
+
+input List8OrderByInput {
+  id: OrderDirection
+  name: OrderDirection
+}
+
+input List8UpdateInput {
+  name: String
+  user: UserRelateToOneForUpdateInput
+}
+
+input List8UpdateArgs {
+  where: List8WhereUniqueInput!
+  data: List8UpdateInput!
+}
+
+input List8CreateInput {
+  name: String
+  user: UserRelateToOneForCreateInput
 }
 
 type PhoneNumber {
@@ -232,6 +733,7 @@ input StringNullableFilter {
   contains: String
   startsWith: String
   endsWith: String
+  mode: QueryMode
   not: NestedStringNullableFilter
 }
 
@@ -261,12 +763,6 @@ input PhoneNumberUpdateInput {
   value: String
 }
 
-input UserRelateToOneForUpdateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
-  disconnect: Boolean
-}
-
 input PhoneNumberUpdateArgs {
   where: PhoneNumberWhereUniqueInput!
   data: PhoneNumberUpdateInput!
@@ -276,11 +772,6 @@ input PhoneNumberCreateInput {
   user: UserRelateToOneForCreateInput
   type: String
   value: String
-}
-
-input UserRelateToOneForCreateInput {
-  create: UserCreateInput
-  connect: UserWhereUniqueInput
 }
 
 type Post {
@@ -364,6 +855,54 @@ type Mutation {
   updateUsers(data: [UserUpdateArgs!]!): [User]
   deleteUser(where: UserWhereUniqueInput!): User
   deleteUsers(where: [UserWhereUniqueInput!]!): [User]
+  createList1(data: List1CreateInput!): List1
+  createList1s(data: [List1CreateInput!]!): [List1]
+  updateList1(where: List1WhereUniqueInput!, data: List1UpdateInput!): List1
+  updateList1s(data: [List1UpdateArgs!]!): [List1]
+  deleteList1(where: List1WhereUniqueInput!): List1
+  deleteList1s(where: [List1WhereUniqueInput!]!): [List1]
+  createList2(data: List2CreateInput!): List2
+  createList2s(data: [List2CreateInput!]!): [List2]
+  updateList2(where: List2WhereUniqueInput!, data: List2UpdateInput!): List2
+  updateList2s(data: [List2UpdateArgs!]!): [List2]
+  deleteList2(where: List2WhereUniqueInput!): List2
+  deleteList2s(where: [List2WhereUniqueInput!]!): [List2]
+  createList3(data: List3CreateInput!): List3
+  createList3s(data: [List3CreateInput!]!): [List3]
+  updateList3(where: List3WhereUniqueInput!, data: List3UpdateInput!): List3
+  updateList3s(data: [List3UpdateArgs!]!): [List3]
+  deleteList3(where: List3WhereUniqueInput!): List3
+  deleteList3s(where: [List3WhereUniqueInput!]!): [List3]
+  createList4(data: List4CreateInput!): List4
+  createList4s(data: [List4CreateInput!]!): [List4]
+  updateList4(where: List4WhereUniqueInput!, data: List4UpdateInput!): List4
+  updateList4s(data: [List4UpdateArgs!]!): [List4]
+  deleteList4(where: List4WhereUniqueInput!): List4
+  deleteList4s(where: [List4WhereUniqueInput!]!): [List4]
+  createList5(data: List5CreateInput!): List5
+  createList5s(data: [List5CreateInput!]!): [List5]
+  updateList5(where: List5WhereUniqueInput!, data: List5UpdateInput!): List5
+  updateList5s(data: [List5UpdateArgs!]!): [List5]
+  deleteList5(where: List5WhereUniqueInput!): List5
+  deleteList5s(where: [List5WhereUniqueInput!]!): [List5]
+  createList6(data: List6CreateInput!): List6
+  createList6s(data: [List6CreateInput!]!): [List6]
+  updateList6(where: List6WhereUniqueInput!, data: List6UpdateInput!): List6
+  updateList6s(data: [List6UpdateArgs!]!): [List6]
+  deleteList6(where: List6WhereUniqueInput!): List6
+  deleteList6s(where: [List6WhereUniqueInput!]!): [List6]
+  createList7(data: List7CreateInput!): List7
+  createList7s(data: [List7CreateInput!]!): [List7]
+  updateList7(where: List7WhereUniqueInput!, data: List7UpdateInput!): List7
+  updateList7s(data: [List7UpdateArgs!]!): [List7]
+  deleteList7(where: List7WhereUniqueInput!): List7
+  deleteList7s(where: [List7WhereUniqueInput!]!): [List7]
+  createList8(data: List8CreateInput!): List8
+  createList8s(data: [List8CreateInput!]!): [List8]
+  updateList8(where: List8WhereUniqueInput!, data: List8UpdateInput!): List8
+  updateList8s(data: [List8UpdateArgs!]!): [List8]
+  deleteList8(where: List8WhereUniqueInput!): List8
+  deleteList8s(where: [List8WhereUniqueInput!]!): [List8]
   createPhoneNumber(data: PhoneNumberCreateInput!): PhoneNumber
   createPhoneNumbers(data: [PhoneNumberCreateInput!]!): [PhoneNumber]
   updatePhoneNumber(where: PhoneNumberWhereUniqueInput!, data: PhoneNumberUpdateInput!): PhoneNumber
@@ -403,6 +942,30 @@ type Query {
   users(where: UserWhereInput! = {}, orderBy: [UserOrderByInput!]! = [], take: Int, skip: Int! = 0): [User!]
   user(where: UserWhereUniqueInput!): User
   usersCount(where: UserWhereInput! = {}): Int
+  list1s(where: List1WhereInput! = {}, orderBy: [List1OrderByInput!]! = [], take: Int, skip: Int! = 0): [List1!]
+  list1(where: List1WhereUniqueInput!): List1
+  list1sCount(where: List1WhereInput! = {}): Int
+  list2s(where: List2WhereInput! = {}, orderBy: [List2OrderByInput!]! = [], take: Int, skip: Int! = 0): [List2!]
+  list2(where: List2WhereUniqueInput!): List2
+  list2sCount(where: List2WhereInput! = {}): Int
+  list3s(where: List3WhereInput! = {}, orderBy: [List3OrderByInput!]! = [], take: Int, skip: Int! = 0): [List3!]
+  list3(where: List3WhereUniqueInput!): List3
+  list3sCount(where: List3WhereInput! = {}): Int
+  list4s(where: List4WhereInput! = {}, orderBy: [List4OrderByInput!]! = [], take: Int, skip: Int! = 0): [List4!]
+  list4(where: List4WhereUniqueInput!): List4
+  list4sCount(where: List4WhereInput! = {}): Int
+  list5s(where: List5WhereInput! = {}, orderBy: [List5OrderByInput!]! = [], take: Int, skip: Int! = 0): [List5!]
+  list5(where: List5WhereUniqueInput!): List5
+  list5sCount(where: List5WhereInput! = {}): Int
+  list6s(where: List6WhereInput! = {}, orderBy: [List6OrderByInput!]! = [], take: Int, skip: Int! = 0): [List6!]
+  list6(where: List6WhereUniqueInput!): List6
+  list6sCount(where: List6WhereInput! = {}): Int
+  list7s(where: List7WhereInput! = {}, orderBy: [List7OrderByInput!]! = [], take: Int, skip: Int! = 0): [List7!]
+  list7(where: List7WhereUniqueInput!): List7
+  list7sCount(where: List7WhereInput! = {}): Int
+  list8s(where: List8WhereInput! = {}, orderBy: [List8OrderByInput!]! = [], take: Int, skip: Int! = 0): [List8!]
+  list8(where: List8WhereUniqueInput!): List8
+  list8sCount(where: List8WhereInput! = {}): Int
   phoneNumbers(where: PhoneNumberWhereInput! = {}, orderBy: [PhoneNumberOrderByInput!]! = [], take: Int, skip: Int! = 0): [PhoneNumber!]
   phoneNumber(where: PhoneNumberWhereUniqueInput!): PhoneNumber
   phoneNumbersCount(where: PhoneNumberWhereInput! = {}): Int
@@ -487,11 +1050,6 @@ enum KeystoneAdminUIFieldMetaItemViewFieldMode {
   edit
   read
   hidden
-}
-
-enum QueryMode {
-  default
-  insensitive
 }
 
 type KeystoneAdminUISort {

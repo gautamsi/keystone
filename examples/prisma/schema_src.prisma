@@ -1,0 +1,921 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "node_modules/.prisma/client"
+}
+
+datasource mysql {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model abilities {
+  id          BigInt        @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name        String        @mysql.VarChar(255)
+  title       String?       @mysql.VarChar(255)
+  entity_id   BigInt?       @mysql.UnsignedBigInt
+  entity_type String?       @mysql.VarChar(255)
+  only_owned  Boolean       @default(false)
+  options     String?       @mysql.LongText
+  scope       Int?
+  created_at  DateTime?     @mysql.Timestamp(0)
+  updated_at  DateTime?     @mysql.Timestamp(0)
+  permissions permissions[]
+
+  @@index([scope], map: "abilities_scope_index")
+}
+
+model addresses {
+  id               BigInt     @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name             String?    @mysql.VarChar(255)
+  address_street_1 String?    @mysql.VarChar(255)
+  address_street_2 String?    @mysql.VarChar(255)
+  city             String?    @mysql.VarChar(255)
+  state            String?    @mysql.VarChar(255)
+  country_id       Int?       @mysql.UnsignedInt
+  zip              String?    @mysql.VarChar(255)
+  phone            String?    @mysql.VarChar(255)
+  fax              String?    @mysql.VarChar(255)
+  type             String?    @mysql.VarChar(255)
+  user_id          Int?       @mysql.UnsignedInt
+  created_at       DateTime?  @mysql.Timestamp(0)
+  updated_at       DateTime?  @mysql.Timestamp(0)
+  company_id       Int?       @mysql.UnsignedInt
+  customer_id      BigInt?    @mysql.UnsignedBigInt
+  companies        companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "addresses_company_id_foreign")
+  countries        countries? @relation(fields: [country_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "addresses_country_id_foreign")
+  customers        customers? @relation(fields: [customer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "addresses_customer_id_foreign")
+  users            users?     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "addresses_user_id_foreign")
+
+  @@index([company_id], map: "addresses_company_id_foreign")
+  @@index([country_id], map: "addresses_country_id_foreign")
+  @@index([customer_id], map: "addresses_customer_id_foreign")
+  @@index([user_id], map: "addresses_user_id_foreign")
+}
+
+model assigned_roles {
+  id                 BigInt  @id @default(autoincrement()) @mysql.UnsignedBigInt
+  role_id            BigInt  @mysql.UnsignedBigInt
+  entity_id          BigInt  @mysql.UnsignedBigInt
+  entity_type        String  @mysql.VarChar(255)
+  restricted_to_id   BigInt? @mysql.UnsignedBigInt
+  restricted_to_type String? @mysql.VarChar(255)
+  scope              Int?
+  roles              roles   @relation(fields: [role_id], references: [id], onDelete: Cascade, map: "assigned_roles_role_id_foreign")
+
+  @@index([entity_id, entity_type, scope], map: "assigned_roles_entity_index")
+  @@index([role_id], map: "assigned_roles_role_id_index")
+  @@index([scope], map: "assigned_roles_scope_index")
+}
+
+model companies {
+  id                      Int                       @id @default(autoincrement()) @mysql.UnsignedInt
+  name                    String                    @mysql.VarChar(255)
+  logo                    String?                   @mysql.VarChar(255)
+  unique_hash             String?                   @mysql.VarChar(255)
+  created_at              DateTime?                 @mysql.Timestamp(0)
+  updated_at              DateTime?                 @mysql.Timestamp(0)
+  slug                    String?                   @mysql.VarChar(255)
+  owner_id                Int?                      @mysql.UnsignedInt
+  users                   users?                    @relation(fields: [owner_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "companies_owner_id_foreign")
+  addresses               addresses[]
+  company_settings        company_settings[]
+  custom_field_values     custom_field_values[]
+  custom_fields           custom_fields[]
+  customers               customers[]
+  estimate_items          estimate_items[]
+  estimates               estimates[]
+  exchange_rate_logs      exchange_rate_logs[]
+  exchange_rate_providers exchange_rate_providers[]
+  expense_categories      expense_categories[]
+  expenses                expenses[]
+  invoice_items           invoice_items[]
+  invoices                invoices[]
+  items                   items[]
+  notes                   notes[]
+  payment_methods         payment_methods[]
+  payments                payments[]
+  recurring_invoices      recurring_invoices[]
+  tax_types               tax_types[]
+  taxes                   taxes[]
+  transactions            transactions[]
+  units                   units[]
+  user_company            user_company[]
+
+  @@index([owner_id], map: "companies_owner_id_foreign")
+}
+
+model company_settings {
+  id         Int        @id @default(autoincrement()) @mysql.UnsignedInt
+  option     String     @mysql.VarChar(255)
+  value      String     @mysql.Text
+  company_id Int?       @mysql.UnsignedInt
+  created_at DateTime?  @mysql.Timestamp(0)
+  updated_at DateTime?  @mysql.Timestamp(0)
+  companies  companies? @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "company_settings_company_id_foreign")
+
+  @@index([company_id], map: "company_settings_company_id_foreign")
+}
+
+model countries {
+  id        Int         @id @default(autoincrement()) @mysql.UnsignedInt
+  code      String      @mysql.VarChar(255)
+  name      String      @mysql.VarChar(255)
+  phonecode Int
+  addresses addresses[]
+
+  @@index([id], map: "countries_id_index")
+}
+
+model currencies {
+  id                                                                 Int                  @id @default(autoincrement()) @mysql.UnsignedInt
+  name                                                               String               @mysql.VarChar(255)
+  code                                                               String               @mysql.VarChar(255)
+  symbol                                                             String?              @mysql.VarChar(255)
+  precision                                                          Int
+  thousand_separator                                                 String               @mysql.VarChar(255)
+  decimal_separator                                                  String               @mysql.VarChar(255)
+  swap_currency_symbol                                               Boolean              @default(false)
+  created_at                                                         DateTime?            @mysql.Timestamp(0)
+  updated_at                                                         DateTime?            @mysql.Timestamp(0)
+  customers                                                          customers[]
+  estimates                                                          estimates[]
+  exchange_rate_logs_currenciesToexchange_rate_logs_base_currency_id exchange_rate_logs[] @relation("currenciesToexchange_rate_logs_base_currency_id")
+  exchange_rate_logs_currenciesToexchange_rate_logs_currency_id      exchange_rate_logs[] @relation("currenciesToexchange_rate_logs_currency_id")
+  invoices                                                           invoices[]
+  items                                                              items[]
+  payments                                                           payments[]
+  recurring_invoices                                                 recurring_invoices[]
+  taxes                                                              taxes[]
+  users                                                              users[]
+}
+
+model custom_field_values {
+  id                         BigInt        @id @default(autoincrement()) @mysql.UnsignedBigInt
+  custom_field_valuable_type String        @mysql.VarChar(255)
+  custom_field_valuable_id   Int           @mysql.UnsignedInt
+  type                       String        @mysql.VarChar(255)
+  boolean_answer             Boolean?
+  date_answer                DateTime?     @mysql.Date
+  time_answer                DateTime?     @mysql.Time(0)
+  string_answer              String?       @mysql.Text
+  number_answer              BigInt?       @mysql.UnsignedBigInt
+  date_time_answer           DateTime?     @mysql.DateTime(0)
+  custom_field_id            BigInt        @mysql.UnsignedBigInt
+  company_id                 Int           @mysql.UnsignedInt
+  created_at                 DateTime?     @mysql.Timestamp(0)
+  updated_at                 DateTime?     @mysql.Timestamp(0)
+  companies                  companies     @relation(fields: [company_id], references: [id], onUpdate: Restrict, map: "custom_field_values_company_id_foreign")
+  custom_fields              custom_fields @relation(fields: [custom_field_id], references: [id], onUpdate: Restrict, map: "custom_field_values_custom_field_id_foreign")
+
+  @@index([company_id], map: "custom_field_values_company_id_foreign")
+  @@index([custom_field_id], map: "custom_field_values_custom_field_id_foreign")
+}
+
+model custom_fields {
+  id                  BigInt                @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name                String                @mysql.VarChar(255)
+  slug                String                @mysql.VarChar(255)
+  label               String                @mysql.VarChar(255)
+  model_type          String                @mysql.VarChar(255)
+  type                String                @mysql.VarChar(255)
+  placeholder         String?               @mysql.VarChar(255)
+  options             String?               @mysql.LongText
+  boolean_answer      Boolean?
+  date_answer         DateTime?             @mysql.Date
+  time_answer         DateTime?             @mysql.Time(0)
+  string_answer       String?               @mysql.Text
+  number_answer       BigInt?               @mysql.UnsignedBigInt
+  date_time_answer    DateTime?             @mysql.DateTime(0)
+  is_required         Boolean               @default(false)
+  order               BigInt                @default(1) @mysql.UnsignedBigInt
+  company_id          Int                   @mysql.UnsignedInt
+  created_at          DateTime?             @mysql.Timestamp(0)
+  updated_at          DateTime?             @mysql.Timestamp(0)
+  companies           companies             @relation(fields: [company_id], references: [id], onUpdate: Restrict, map: "custom_fields_company_id_foreign")
+  custom_field_values custom_field_values[]
+
+  @@index([company_id], map: "custom_fields_company_id_foreign")
+}
+
+model customers {
+  id                 BigInt               @id @default(autoincrement()) @mysql.UnsignedBigInt
+  prefix             String?              @mysql.VarChar(255)
+  name               String               @mysql.VarChar(255)
+  email              String?              @mysql.VarChar(255)
+  phone              String?              @mysql.VarChar(255)
+  password           String?              @mysql.VarChar(255)
+  remember_token     String?              @mysql.VarChar(100)
+  facebook_id        String?              @mysql.VarChar(255)
+  google_id          String?              @mysql.VarChar(255)
+  github_id          String?              @mysql.VarChar(255)
+  contact_name       String?              @mysql.VarChar(255)
+  company_name       String?              @mysql.VarChar(255)
+  website            String?              @mysql.VarChar(255)
+  enable_portal      Boolean?             @default(false)
+  currency_id        Int?                 @mysql.UnsignedInt
+  company_id         Int?                 @mysql.UnsignedInt
+  creator_id         Int?                 @mysql.UnsignedInt
+  created_at         DateTime?            @mysql.Timestamp(0)
+  updated_at         DateTime?            @mysql.Timestamp(0)
+  companies          companies?           @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "customers_company_id_foreign")
+  users              users?               @relation(fields: [creator_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "customers_creator_id_foreign")
+  currencies         currencies?          @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "customers_currency_id_foreign")
+  addresses          addresses[]
+  estimates          estimates[]
+  invoices           invoices[]
+  payments           payments[]
+  recurring_invoices recurring_invoices[]
+
+  @@index([company_id], map: "customers_company_id_foreign")
+  @@index([creator_id], map: "customers_creator_id_foreign")
+  @@index([currency_id], map: "customers_currency_id_foreign")
+}
+
+model email_logs {
+  id            BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  from          String    @mysql.VarChar(255)
+  to            String    @mysql.VarChar(255)
+  subject       String    @mysql.VarChar(255)
+  body          String    @mysql.Text
+  mailable_type String    @mysql.VarChar(255)
+  mailable_id   String    @mysql.VarChar(255)
+  created_at    DateTime? @mysql.Timestamp(0)
+  updated_at    DateTime? @mysql.Timestamp(0)
+  token         String?   @unique(map: "email_logs_token_unique") @mysql.VarChar(255)
+}
+
+model estimate_items {
+  id                Int        @id @default(autoincrement()) @mysql.UnsignedInt
+  name              String     @mysql.VarChar(255)
+  description       String?    @mysql.Text
+  discount_type     String     @mysql.VarChar(255)
+  quantity          Decimal    @mysql.Decimal(15, 2)
+  unit_name         String?    @mysql.VarChar(255)
+  discount          Decimal?   @mysql.Decimal(15, 2)
+  discount_val      BigInt?    @mysql.UnsignedBigInt
+  price             BigInt     @mysql.UnsignedBigInt
+  tax               BigInt     @mysql.UnsignedBigInt
+  total             BigInt     @mysql.UnsignedBigInt
+  item_id           Int?       @mysql.UnsignedInt
+  estimate_id       Int        @mysql.UnsignedInt
+  company_id        Int?       @mysql.UnsignedInt
+  created_at        DateTime?  @mysql.Timestamp(0)
+  updated_at        DateTime?  @mysql.Timestamp(0)
+  exchange_rate     Decimal?   @mysql.Decimal(19, 6)
+  base_discount_val BigInt?    @mysql.UnsignedBigInt
+  base_price        BigInt?    @mysql.UnsignedBigInt
+  base_tax          BigInt?    @mysql.UnsignedBigInt
+  base_total        BigInt?    @mysql.UnsignedBigInt
+  companies         companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "estimate_items_company_id_foreign")
+  estimates         estimates  @relation(fields: [estimate_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "estimate_items_estimate_id_foreign")
+  items             items?     @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "estimate_items_item_id_foreign")
+  taxes             taxes[]
+
+  @@index([company_id], map: "estimate_items_company_id_foreign")
+  @@index([estimate_id], map: "estimate_items_estimate_id_foreign")
+  @@index([item_id], map: "estimate_items_item_id_foreign")
+}
+
+model estimates {
+  id                       Int              @id @default(autoincrement()) @mysql.UnsignedInt
+  sequence_number          Int?             @mysql.UnsignedMediumInt
+  customer_sequence_number Int?             @mysql.UnsignedMediumInt
+  estimate_date            DateTime         @mysql.Date
+  expiry_date              DateTime?        @mysql.Date
+  estimate_number          String           @mysql.VarChar(255)
+  status                   String           @mysql.VarChar(255)
+  reference_number         String?          @mysql.VarChar(255)
+  tax_per_item             String           @mysql.VarChar(255)
+  discount_per_item        String           @mysql.VarChar(255)
+  notes                    String?          @mysql.Text
+  discount                 Decimal?         @mysql.Decimal(15, 2)
+  discount_type            String?          @mysql.VarChar(255)
+  discount_val             BigInt?          @mysql.UnsignedBigInt
+  sub_total                BigInt           @mysql.UnsignedBigInt
+  total                    BigInt           @mysql.UnsignedBigInt
+  tax                      BigInt           @mysql.UnsignedBigInt
+  unique_hash              String?          @mysql.VarChar(255)
+  company_id               Int?             @mysql.UnsignedInt
+  created_at               DateTime?        @mysql.Timestamp(0)
+  updated_at               DateTime?        @mysql.Timestamp(0)
+  creator_id               Int?             @mysql.UnsignedInt
+  template_name            String?          @mysql.VarChar(255)
+  customer_id              BigInt?          @mysql.UnsignedBigInt
+  exchange_rate            Decimal?         @mysql.Decimal(19, 6)
+  base_discount_val        BigInt?          @mysql.UnsignedBigInt
+  base_sub_total           BigInt?          @mysql.UnsignedBigInt
+  base_total               BigInt?          @mysql.UnsignedBigInt
+  base_tax                 BigInt?          @mysql.UnsignedBigInt
+  currency_id              Int?             @mysql.UnsignedInt
+  sales_tax_type           String?          @mysql.VarChar(255)
+  sales_tax_address_type   String?          @mysql.VarChar(255)
+  companies                companies?       @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "estimates_company_id_foreign")
+  users                    users?           @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "estimates_creator_id_foreign")
+  currencies               currencies?      @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "estimates_currency_id_foreign")
+  customers                customers?       @relation(fields: [customer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "estimates_customer_id_foreign")
+  estimate_items           estimate_items[]
+  taxes                    taxes[]
+
+  @@index([company_id], map: "estimates_company_id_foreign")
+  @@index([creator_id], map: "estimates_creator_id_foreign")
+  @@index([currency_id], map: "estimates_currency_id_foreign")
+  @@index([customer_id], map: "estimates_customer_id_foreign")
+}
+
+model exchange_rate_logs {
+  id                                                         BigInt      @id @default(autoincrement()) @mysql.UnsignedBigInt
+  company_id                                                 Int?        @mysql.UnsignedInt
+  base_currency_id                                           Int?        @mysql.UnsignedInt
+  currency_id                                                Int?        @mysql.UnsignedInt
+  exchange_rate                                              Decimal?    @mysql.Decimal(19, 6)
+  created_at                                                 DateTime?   @mysql.Timestamp(0)
+  updated_at                                                 DateTime?   @mysql.Timestamp(0)
+  currencies_currenciesToexchange_rate_logs_base_currency_id currencies? @relation("currenciesToexchange_rate_logs_base_currency_id", fields: [base_currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "exchange_rate_logs_base_currency_id_foreign")
+  companies                                                  companies?  @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "exchange_rate_logs_company_id_foreign")
+  currencies_currenciesToexchange_rate_logs_currency_id      currencies? @relation("currenciesToexchange_rate_logs_currency_id", fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "exchange_rate_logs_currency_id_foreign")
+
+  @@index([base_currency_id], map: "exchange_rate_logs_base_currency_id_foreign")
+  @@index([company_id], map: "exchange_rate_logs_company_id_foreign")
+  @@index([currency_id], map: "exchange_rate_logs_currency_id_foreign")
+}
+
+model exchange_rate_providers {
+  id            BigInt     @id @default(autoincrement()) @mysql.UnsignedBigInt
+  driver        String     @mysql.VarChar(255)
+  key           String     @mysql.VarChar(255)
+  currencies    String?    @mysql.LongText
+  driver_config String?    @mysql.LongText
+  active        Boolean    @default(true)
+  company_id    Int?       @mysql.UnsignedInt
+  created_at    DateTime?  @mysql.Timestamp(0)
+  updated_at    DateTime?  @mysql.Timestamp(0)
+  companies     companies? @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "exchange_rate_providers_company_id_foreign")
+
+  @@index([company_id], map: "exchange_rate_providers_company_id_foreign")
+}
+
+model expense_categories {
+  id          Int        @id @default(autoincrement()) @mysql.UnsignedInt
+  name        String     @mysql.VarChar(255)
+  description String?    @mysql.VarChar(255)
+  company_id  Int?       @mysql.UnsignedInt
+  created_at  DateTime?  @mysql.Timestamp(0)
+  updated_at  DateTime?  @mysql.Timestamp(0)
+  companies   companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "expense_categories_company_id_foreign")
+  expenses    expenses[]
+
+  @@index([company_id], map: "expense_categories_company_id_foreign")
+}
+
+model expenses {
+  id                  Int                @id @default(autoincrement()) @mysql.UnsignedInt
+  expense_date        DateTime           @mysql.Date
+  attachment_receipt  String?            @mysql.VarChar(255)
+  amount              BigInt             @mysql.UnsignedBigInt
+  notes               String?            @mysql.Text
+  expense_category_id Int                @mysql.UnsignedInt
+  company_id          Int?               @mysql.UnsignedInt
+  created_at          DateTime?          @mysql.Timestamp(0)
+  updated_at          DateTime?          @mysql.Timestamp(0)
+  creator_id          Int?               @mysql.UnsignedInt
+  customer_id         BigInt?            @mysql.UnsignedBigInt
+  exchange_rate       Decimal?           @mysql.Decimal(19, 6)
+  base_amount         BigInt?            @mysql.UnsignedBigInt
+  currency_id         Int?               @mysql.UnsignedInt
+  payment_method_id   Int?               @mysql.UnsignedInt
+  companies           companies?         @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "expenses_company_id_foreign")
+  users               users?             @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "expenses_creator_id_foreign")
+  expense_categories  expense_categories @relation(fields: [expense_category_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "expenses_expense_category_id_foreign")
+  payment_methods     payment_methods?   @relation(fields: [payment_method_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "expenses_payment_method_id_foreign")
+
+  @@index([company_id], map: "expenses_company_id_foreign")
+  @@index([creator_id], map: "expenses_creator_id_foreign")
+  @@index([expense_category_id], map: "expenses_expense_category_id_foreign")
+  @@index([payment_method_id], map: "expenses_payment_method_id_foreign")
+}
+
+model file_disks {
+  id             BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name           String    @mysql.VarChar(255)
+  type           String    @default("REMOTE") @mysql.VarChar(255)
+  driver         String    @mysql.VarChar(255)
+  set_as_default Boolean   @default(false)
+  credentials    String    @mysql.LongText
+  created_at     DateTime? @mysql.Timestamp(0)
+  updated_at     DateTime? @mysql.Timestamp(0)
+}
+
+model invoice_items {
+  id                   Int                 @id @default(autoincrement()) @mysql.UnsignedInt
+  name                 String              @mysql.VarChar(255)
+  description          String?             @mysql.Text
+  discount_type        String              @mysql.VarChar(255)
+  price                BigInt              @mysql.UnsignedBigInt
+  quantity             Decimal             @mysql.Decimal(15, 2)
+  unit_name            String?             @mysql.VarChar(255)
+  discount             Decimal?            @mysql.Decimal(15, 2)
+  discount_val         BigInt              @mysql.UnsignedBigInt
+  tax                  BigInt              @mysql.UnsignedBigInt
+  total                BigInt              @mysql.UnsignedBigInt
+  invoice_id           Int?                @mysql.UnsignedInt
+  item_id              Int?                @mysql.UnsignedInt
+  company_id           Int?                @mysql.UnsignedInt
+  created_at           DateTime?           @mysql.Timestamp(0)
+  updated_at           DateTime?           @mysql.Timestamp(0)
+  recurring_invoice_id BigInt?             @mysql.UnsignedBigInt
+  base_price           BigInt?             @mysql.UnsignedBigInt
+  exchange_rate        Decimal?            @mysql.Decimal(19, 6)
+  base_discount_val    BigInt?             @mysql.UnsignedBigInt
+  base_tax             BigInt?             @mysql.UnsignedBigInt
+  base_total           BigInt?             @mysql.UnsignedBigInt
+  companies            companies?          @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "invoice_items_company_id_foreign")
+  invoices             invoices?           @relation(fields: [invoice_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "invoice_items_invoice_id_foreign")
+  items                items?              @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "invoice_items_item_id_foreign")
+  recurring_invoices   recurring_invoices? @relation(fields: [recurring_invoice_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "invoice_items_recurring_invoice_id_foreign")
+  taxes                taxes[]
+
+  @@index([company_id], map: "invoice_items_company_id_foreign")
+  @@index([invoice_id], map: "invoice_items_invoice_id_foreign")
+  @@index([item_id], map: "invoice_items_item_id_foreign")
+  @@index([recurring_invoice_id], map: "invoice_items_recurring_invoice_id_foreign")
+}
+
+model invoices {
+  id                       Int                 @id @default(autoincrement()) @mysql.UnsignedInt
+  sequence_number          Int?                @mysql.UnsignedMediumInt
+  customer_sequence_number Int?                @mysql.UnsignedMediumInt
+  invoice_date             DateTime            @mysql.Date
+  due_date                 DateTime?           @mysql.Date
+  invoice_number           String              @mysql.VarChar(255)
+  reference_number         String?             @mysql.VarChar(255)
+  status                   String              @mysql.VarChar(255)
+  paid_status              String              @mysql.VarChar(255)
+  tax_per_item             String              @mysql.VarChar(255)
+  discount_per_item        String              @mysql.VarChar(255)
+  notes                    String?             @mysql.Text
+  discount_type            String?             @mysql.VarChar(255)
+  discount                 Decimal?            @mysql.Decimal(15, 2)
+  discount_val             BigInt?             @mysql.UnsignedBigInt
+  sub_total                BigInt              @mysql.UnsignedBigInt
+  total                    BigInt              @mysql.UnsignedBigInt
+  tax                      BigInt              @mysql.UnsignedBigInt
+  due_amount               BigInt              @mysql.UnsignedBigInt
+  sent                     Boolean             @default(false)
+  viewed                   Boolean             @default(false)
+  unique_hash              String?             @mysql.VarChar(255)
+  company_id               Int?                @mysql.UnsignedInt
+  created_at               DateTime?           @mysql.Timestamp(0)
+  updated_at               DateTime?           @mysql.Timestamp(0)
+  creator_id               Int?                @mysql.UnsignedInt
+  template_name            String?             @mysql.VarChar(255)
+  customer_id              BigInt?             @mysql.UnsignedBigInt
+  recurring_invoice_id     BigInt?             @mysql.UnsignedBigInt
+  exchange_rate            Decimal?            @mysql.Decimal(19, 6)
+  base_discount_val        BigInt?             @mysql.UnsignedBigInt
+  base_sub_total           BigInt?             @mysql.UnsignedBigInt
+  base_total               BigInt?             @mysql.UnsignedBigInt
+  base_tax                 BigInt?             @mysql.UnsignedBigInt
+  base_due_amount          BigInt?             @mysql.UnsignedBigInt
+  currency_id              Int?                @mysql.UnsignedInt
+  sales_tax_type           String?             @mysql.VarChar(255)
+  sales_tax_address_type   String?             @mysql.VarChar(255)
+  overdue                  Boolean             @default(false)
+  companies                companies?          @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "invoices_company_id_foreign")
+  users                    users?              @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "invoices_creator_id_foreign")
+  currencies               currencies?         @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "invoices_currency_id_foreign")
+  customers                customers?          @relation(fields: [customer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "invoices_customer_id_foreign")
+  recurring_invoices       recurring_invoices? @relation(fields: [recurring_invoice_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "invoices_recurring_invoice_id_foreign")
+  invoice_items            invoice_items[]
+  payments                 payments[]
+  taxes                    taxes[]
+  transactions             transactions[]
+
+  @@index([company_id], map: "invoices_company_id_foreign")
+  @@index([creator_id], map: "invoices_creator_id_foreign")
+  @@index([currency_id], map: "invoices_currency_id_foreign")
+  @@index([customer_id], map: "invoices_customer_id_foreign")
+  @@index([recurring_invoice_id], map: "invoices_recurring_invoice_id_foreign")
+}
+
+model items {
+  id             Int              @id @default(autoincrement()) @mysql.UnsignedInt
+  name           String           @mysql.VarChar(255)
+  description    String?          @mysql.Text
+  price          BigInt           @mysql.UnsignedBigInt
+  company_id     Int?             @mysql.UnsignedInt
+  unit_id        Int?             @mysql.UnsignedInt
+  created_at     DateTime?        @mysql.Timestamp(0)
+  updated_at     DateTime?        @mysql.Timestamp(0)
+  creator_id     Int?             @mysql.UnsignedInt
+  currency_id    Int?             @mysql.UnsignedInt
+  tax_per_item   Boolean          @default(false)
+  companies      companies?       @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "items_company_id_foreign")
+  users          users?           @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "items_creator_id_foreign")
+  currencies     currencies?      @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "items_currency_id_foreign")
+  units          units?           @relation(fields: [unit_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "items_unit_id_foreign")
+  estimate_items estimate_items[]
+  invoice_items  invoice_items[]
+  taxes          taxes[]
+
+  @@index([company_id], map: "items_company_id_foreign")
+  @@index([creator_id], map: "items_creator_id_foreign")
+  @@index([currency_id], map: "items_currency_id_foreign")
+  @@index([unit_id], map: "items_unit_id_foreign")
+}
+
+model media {
+  id                BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  model_type        String    @mysql.VarChar(255)
+  model_id          BigInt    @mysql.UnsignedBigInt
+  collection_name   String    @mysql.VarChar(255)
+  name              String    @mysql.VarChar(255)
+  file_name         String    @mysql.VarChar(255)
+  mime_type         String?   @mysql.VarChar(255)
+  disk              String    @mysql.VarChar(255)
+  size              Int       @mysql.UnsignedInt
+  manipulations     String    @mysql.Text
+  custom_properties String    @mysql.Text
+  responsive_images String    @mysql.Text
+  order_column      Int?      @mysql.UnsignedInt
+  created_at        DateTime? @mysql.Timestamp(0)
+  updated_at        DateTime? @mysql.Timestamp(0)
+  uuid              String?   @mysql.Char(36)
+  conversions_disk  String?   @mysql.VarChar(255)
+
+  @@index([model_type, model_id], map: "media_model_type_model_id_index")
+}
+
+model migrations {
+  id        Int    @id @default(autoincrement()) @mysql.UnsignedInt
+  migration String @mysql.VarChar(255)
+  batch     Int
+}
+
+model modules {
+  id         BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name       String    @mysql.VarChar(255)
+  version    String    @mysql.VarChar(255)
+  installed  Boolean   @default(false)
+  enabled    Boolean   @default(false)
+  created_at DateTime? @mysql.Timestamp(0)
+  updated_at DateTime? @mysql.Timestamp(0)
+}
+
+model notes {
+  id         BigInt     @id @default(autoincrement()) @mysql.UnsignedBigInt
+  type       String     @mysql.VarChar(255)
+  name       String     @mysql.VarChar(255)
+  notes      String     @mysql.Text
+  created_at DateTime?  @mysql.Timestamp(0)
+  updated_at DateTime?  @mysql.Timestamp(0)
+  company_id Int?       @mysql.UnsignedInt
+  companies  companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "notes_company_id_foreign")
+
+  @@index([company_id], map: "notes_company_id_foreign")
+}
+
+model notifications {
+  id              String    @id @mysql.Char(36)
+  type            String    @mysql.VarChar(255)
+  notifiable_type String    @mysql.VarChar(255)
+  notifiable_id   BigInt    @mysql.UnsignedBigInt
+  data            String    @mysql.Text
+  read_at         DateTime? @mysql.Timestamp(0)
+  created_at      DateTime? @mysql.Timestamp(0)
+  updated_at      DateTime? @mysql.Timestamp(0)
+
+  @@index([notifiable_type, notifiable_id], map: "notifications_notifiable_type_notifiable_id_index")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model password_resets {
+  email      String    @mysql.VarChar(255)
+  token      String    @mysql.VarChar(255)
+  created_at DateTime? @mysql.Timestamp(0)
+
+  @@index([email], map: "password_resets_email_index")
+  @@ignore
+}
+
+model payment_methods {
+  id           Int                  @id @default(autoincrement()) @mysql.UnsignedInt
+  name         String               @mysql.VarChar(255)
+  company_id   Int?                 @mysql.UnsignedInt
+  created_at   DateTime?            @mysql.Timestamp(0)
+  updated_at   DateTime?            @mysql.Timestamp(0)
+  driver       String?              @mysql.VarChar(255)
+  type         payment_methods_type @default(GENERAL)
+  settings     String?              @mysql.LongText
+  active       Boolean              @default(false)
+  use_test_env Boolean              @default(false)
+  companies    companies?           @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "payment_methods_company_id_foreign")
+  expenses     expenses[]
+  payments     payments[]
+
+  @@index([company_id], map: "payment_methods_company_id_foreign")
+}
+
+model payments {
+  id                       BigInt           @id @default(autoincrement()) @mysql.UnsignedBigInt
+  sequence_number          Int?             @mysql.UnsignedMediumInt
+  customer_sequence_number Int?             @mysql.UnsignedMediumInt
+  payment_number           String           @mysql.VarChar(255)
+  payment_date             DateTime         @mysql.Date
+  notes                    String?          @mysql.Text
+  amount                   BigInt           @mysql.UnsignedBigInt
+  unique_hash              String?          @mysql.VarChar(255)
+  invoice_id               Int?             @mysql.UnsignedInt
+  company_id               Int?             @mysql.UnsignedInt
+  payment_method_id        Int?             @mysql.UnsignedInt
+  created_at               DateTime?        @mysql.Timestamp(0)
+  updated_at               DateTime?        @mysql.Timestamp(0)
+  creator_id               Int?             @mysql.UnsignedInt
+  customer_id              BigInt?          @mysql.UnsignedBigInt
+  exchange_rate            Decimal?         @mysql.Decimal(19, 6)
+  base_amount              BigInt?          @mysql.UnsignedBigInt
+  currency_id              Int?             @mysql.UnsignedInt
+  transaction_id           BigInt?          @mysql.UnsignedBigInt
+  companies                companies?       @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "payments_company_id_foreign")
+  users                    users?           @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "payments_creator_id_foreign")
+  currencies               currencies?      @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "payments_currency_id_foreign")
+  customers                customers?       @relation(fields: [customer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "payments_customer_id_foreign")
+  invoices                 invoices?        @relation(fields: [invoice_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "payments_invoice_id_foreign")
+  payment_methods          payment_methods? @relation(fields: [payment_method_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "payments_payment_method_id_foreign")
+  transactions             transactions?    @relation(fields: [transaction_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "payments_transaction_id_foreign")
+
+  @@index([company_id], map: "payments_company_id_foreign")
+  @@index([creator_id], map: "payments_creator_id_foreign")
+  @@index([currency_id], map: "payments_currency_id_foreign")
+  @@index([customer_id], map: "payments_customer_id_foreign")
+  @@index([invoice_id], map: "payments_invoice_id_foreign")
+  @@index([payment_method_id], map: "payments_payment_method_id_foreign")
+  @@index([transaction_id], map: "payments_transaction_id_foreign")
+}
+
+model permissions {
+  id          BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  ability_id  BigInt    @mysql.UnsignedBigInt
+  entity_id   BigInt?   @mysql.UnsignedBigInt
+  entity_type String?   @mysql.VarChar(255)
+  forbidden   Boolean   @default(false)
+  scope       Int?
+  abilities   abilities @relation(fields: [ability_id], references: [id], onDelete: Cascade, map: "permissions_ability_id_foreign")
+
+  @@index([ability_id], map: "permissions_ability_id_index")
+  @@index([entity_id, entity_type, scope], map: "permissions_entity_index")
+  @@index([scope], map: "permissions_scope_index")
+}
+
+model personal_access_tokens {
+  id             BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  tokenable_type String    @mysql.VarChar(255)
+  tokenable_id   BigInt    @mysql.UnsignedBigInt
+  name           String    @mysql.VarChar(255)
+  token          String    @unique(map: "personal_access_tokens_token_unique") @mysql.VarChar(64)
+  abilities      String?   @mysql.Text
+  last_used_at   DateTime? @mysql.Timestamp(0)
+  created_at     DateTime? @mysql.Timestamp(0)
+  updated_at     DateTime? @mysql.Timestamp(0)
+
+  @@index([tokenable_type, tokenable_id], map: "personal_access_tokens_tokenable_type_tokenable_id_index")
+}
+
+model recurring_invoices {
+  id                     BigInt                      @id @default(autoincrement()) @mysql.UnsignedBigInt
+  starts_at              DateTime                    @mysql.DateTime(0)
+  send_automatically     Boolean                     @default(false)
+  customer_id            BigInt?                     @mysql.UnsignedBigInt
+  company_id             Int?                        @mysql.UnsignedInt
+  status                 recurring_invoices_status   @default(ACTIVE)
+  next_invoice_at        DateTime?                   @mysql.DateTime(0)
+  creator_id             Int?                        @mysql.UnsignedInt
+  frequency              String                      @mysql.VarChar(255)
+  limit_by               recurring_invoices_limit_by @default(NONE)
+  limit_count            Int?
+  limit_date             DateTime?                   @mysql.Date
+  currency_id            Int?                        @mysql.UnsignedInt
+  exchange_rate          Decimal?                    @mysql.Decimal(19, 6)
+  tax_per_item           String                      @mysql.VarChar(255)
+  discount_per_item      String                      @mysql.VarChar(255)
+  notes                  String?                     @mysql.Text
+  discount_type          String?                     @mysql.VarChar(255)
+  discount               Decimal?                    @mysql.Decimal(15, 2)
+  discount_val           BigInt?                     @mysql.UnsignedBigInt
+  sub_total              BigInt                      @mysql.UnsignedBigInt
+  total                  BigInt                      @mysql.UnsignedBigInt
+  tax                    BigInt                      @mysql.UnsignedBigInt
+  template_name          String?                     @mysql.VarChar(255)
+  due_amount             BigInt                      @mysql.UnsignedBigInt
+  created_at             DateTime?                   @mysql.Timestamp(0)
+  updated_at             DateTime?                   @mysql.Timestamp(0)
+  sales_tax_type         String?                     @mysql.VarChar(255)
+  sales_tax_address_type String?                     @mysql.VarChar(255)
+  companies              companies?                  @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "recurring_invoices_company_id_foreign")
+  users                  users?                      @relation(fields: [creator_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "recurring_invoices_creator_id_foreign")
+  currencies             currencies?                 @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "recurring_invoices_currency_id_foreign")
+  customers              customers?                  @relation(fields: [customer_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "recurring_invoices_customer_id_foreign")
+  invoice_items          invoice_items[]
+  invoices               invoices[]
+  taxes                  taxes[]
+
+  @@index([company_id], map: "recurring_invoices_company_id_foreign")
+  @@index([creator_id], map: "recurring_invoices_creator_id_foreign")
+  @@index([currency_id], map: "recurring_invoices_currency_id_foreign")
+  @@index([customer_id], map: "recurring_invoices_customer_id_foreign")
+}
+
+model roles {
+  id             BigInt           @id @default(autoincrement()) @mysql.UnsignedBigInt
+  name           String           @mysql.VarChar(255)
+  title          String?          @mysql.VarChar(255)
+  level          Int?             @mysql.UnsignedInt
+  scope          Int?
+  created_at     DateTime?        @mysql.Timestamp(0)
+  updated_at     DateTime?        @mysql.Timestamp(0)
+  assigned_roles assigned_roles[]
+
+  @@unique([name, scope], map: "roles_name_unique")
+  @@index([scope], map: "roles_scope_index")
+}
+
+model settings {
+  id         Int       @id @default(autoincrement()) @mysql.UnsignedInt
+  option     String    @mysql.VarChar(255)
+  value      String?   @mysql.VarChar(255)
+  created_at DateTime? @mysql.Timestamp(0)
+  updated_at DateTime? @mysql.Timestamp(0)
+}
+
+model tax_types {
+  id             Int            @id @default(autoincrement()) @mysql.UnsignedInt
+  name           String         @mysql.VarChar(255)
+  percent        Decimal        @mysql.Decimal(5, 2)
+  compound_tax   Int            @default(0) @mysql.TinyInt
+  collective_tax Int            @default(0) @mysql.TinyInt
+  description    String?        @mysql.Text
+  company_id     Int?           @mysql.UnsignedInt
+  created_at     DateTime?      @mysql.Timestamp(0)
+  updated_at     DateTime?      @mysql.Timestamp(0)
+  type           tax_types_type @default(GENERAL)
+  companies      companies?     @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "tax_types_company_id_foreign")
+  taxes          taxes[]
+
+  @@index([company_id], map: "tax_types_company_id_foreign")
+}
+
+model taxes {
+  id                   Int                 @id @default(autoincrement()) @mysql.UnsignedInt
+  tax_type_id          Int                 @mysql.UnsignedInt
+  invoice_id           Int?                @mysql.UnsignedInt
+  estimate_id          Int?                @mysql.UnsignedInt
+  invoice_item_id      Int?                @mysql.UnsignedInt
+  estimate_item_id     Int?                @mysql.UnsignedInt
+  item_id              Int?                @mysql.UnsignedInt
+  company_id           Int?                @mysql.UnsignedInt
+  name                 String              @mysql.VarChar(255)
+  amount               BigInt              @mysql.UnsignedBigInt
+  percent              Decimal             @mysql.Decimal(5, 2)
+  compound_tax         Int                 @default(0) @mysql.TinyInt
+  created_at           DateTime?           @mysql.Timestamp(0)
+  updated_at           DateTime?           @mysql.Timestamp(0)
+  exchange_rate        Decimal?            @mysql.Decimal(19, 6)
+  base_amount          BigInt?             @mysql.UnsignedBigInt
+  currency_id          Int?                @mysql.UnsignedInt
+  recurring_invoice_id BigInt?             @mysql.UnsignedBigInt
+  companies            companies?          @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "taxes_company_id_foreign")
+  currencies           currencies?         @relation(fields: [currency_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "taxes_currency_id_foreign")
+  estimates            estimates?          @relation(fields: [estimate_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "taxes_estimate_id_foreign")
+  estimate_items       estimate_items?     @relation(fields: [estimate_item_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "taxes_estimate_item_id_foreign")
+  invoices             invoices?           @relation(fields: [invoice_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "taxes_invoice_id_foreign")
+  invoice_items        invoice_items?      @relation(fields: [invoice_item_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "taxes_invoice_item_id_foreign")
+  items                items?              @relation(fields: [item_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "taxes_item_id_foreign")
+  recurring_invoices   recurring_invoices? @relation(fields: [recurring_invoice_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "taxes_recurring_invoice_id_foreign")
+  tax_types            tax_types           @relation(fields: [tax_type_id], references: [id], onUpdate: Restrict, map: "taxes_tax_type_id_foreign")
+
+  @@index([company_id], map: "taxes_company_id_foreign")
+  @@index([currency_id], map: "taxes_currency_id_foreign")
+  @@index([estimate_id], map: "taxes_estimate_id_foreign")
+  @@index([estimate_item_id], map: "taxes_estimate_item_id_foreign")
+  @@index([invoice_id], map: "taxes_invoice_id_foreign")
+  @@index([invoice_item_id], map: "taxes_invoice_item_id_foreign")
+  @@index([item_id], map: "taxes_item_id_foreign")
+  @@index([recurring_invoice_id], map: "taxes_recurring_invoice_id_foreign")
+  @@index([tax_type_id], map: "taxes_tax_type_id_foreign")
+}
+
+model transactions {
+  id               BigInt     @id @default(autoincrement()) @mysql.UnsignedBigInt
+  transaction_id   String?    @mysql.VarChar(255)
+  unique_hash      String?    @mysql.VarChar(255)
+  type             String?    @mysql.VarChar(255)
+  status           String     @mysql.VarChar(255)
+  transaction_date DateTime   @mysql.DateTime(0)
+  company_id       Int?       @mysql.UnsignedInt
+  invoice_id       Int        @mysql.UnsignedInt
+  created_at       DateTime?  @mysql.Timestamp(0)
+  updated_at       DateTime?  @mysql.Timestamp(0)
+  companies        companies? @relation(fields: [company_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "transactions_company_id_foreign")
+  invoices         invoices   @relation(fields: [invoice_id], references: [id], onUpdate: Restrict, map: "transactions_invoice_id_foreign")
+  payments         payments[]
+
+  @@index([company_id], map: "transactions_company_id_foreign")
+  @@index([invoice_id], map: "transactions_invoice_id_foreign")
+}
+
+model units {
+  id         Int        @id @default(autoincrement()) @mysql.UnsignedInt
+  name       String     @mysql.VarChar(255)
+  company_id Int?       @mysql.UnsignedInt
+  created_at DateTime?  @mysql.Timestamp(0)
+  updated_at DateTime?  @mysql.Timestamp(0)
+  companies  companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "units_company_id_foreign")
+  items      items[]
+
+  @@index([company_id], map: "units_company_id_foreign")
+}
+
+model user_company {
+  id         BigInt     @id @default(autoincrement()) @mysql.UnsignedBigInt
+  user_id    Int?       @mysql.UnsignedInt
+  company_id Int?       @mysql.UnsignedInt
+  created_at DateTime?  @mysql.Timestamp(0)
+  updated_at DateTime?  @mysql.Timestamp(0)
+  companies  companies? @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_company_company_id_foreign")
+  users      users?     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_company_user_id_foreign")
+
+  @@index([company_id], map: "user_company_company_id_foreign")
+  @@index([user_id], map: "user_company_user_id_foreign")
+}
+
+model user_settings {
+  id         BigInt    @id @default(autoincrement()) @mysql.UnsignedBigInt
+  key        String    @mysql.VarChar(255)
+  value      String    @mysql.Text
+  user_id    Int       @mysql.UnsignedInt
+  created_at DateTime? @mysql.Timestamp(0)
+  updated_at DateTime? @mysql.Timestamp(0)
+  users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "user_settings_user_id_foreign")
+
+  @@index([user_id], map: "user_settings_user_id_foreign")
+}
+
+model users {
+  id                 Int                  @id @default(autoincrement()) @mysql.UnsignedInt
+  name               String               @mysql.VarChar(255)
+  email              String?              @unique(map: "users_email_unique") @mysql.VarChar(255)
+  phone              String?              @mysql.VarChar(255)
+  password           String?              @mysql.VarChar(255)
+  role               String               @default("user") @mysql.VarChar(255)
+  remember_token     String?              @mysql.VarChar(100)
+  facebook_id        String?              @mysql.VarChar(255)
+  google_id          String?              @mysql.VarChar(255)
+  github_id          String?              @mysql.VarChar(255)
+  contact_name       String?              @mysql.VarChar(255)
+  company_name       String?              @mysql.VarChar(255)
+  website            String?              @mysql.VarChar(255)
+  enable_portal      Boolean?
+  currency_id        Int?                 @mysql.UnsignedInt
+  created_at         DateTime?            @mysql.Timestamp(0)
+  updated_at         DateTime?            @mysql.Timestamp(0)
+  creator_id         Int?                 @mysql.UnsignedInt
+  users              users?               @relation("usersTousers", fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "users_creator_id_foreign")
+  currencies         currencies?          @relation(fields: [currency_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "users_currency_id_foreign")
+  addresses          addresses[]
+  companies          companies[]
+  customers          customers[]
+  estimates          estimates[]
+  expenses           expenses[]
+  invoices           invoices[]
+  items              items[]
+  payments           payments[]
+  recurring_invoices recurring_invoices[]
+  user_company       user_company[]
+  user_settings      user_settings[]
+  other_users        users[]              @relation("usersTousers")
+
+  @@index([creator_id], map: "users_creator_id_foreign")
+  @@index([currency_id], map: "users_currency_id_foreign")
+}
+
+enum recurring_invoices_status {
+  COMPLETED
+  ON_HOLD
+  ACTIVE
+}
+
+enum payment_methods_type {
+  GENERAL
+  MODULE
+}
+
+enum recurring_invoices_limit_by {
+  NONE
+  COUNT
+  DATE
+}
+
+enum tax_types_type {
+  GENERAL
+  MODULE
+}

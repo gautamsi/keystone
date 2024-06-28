@@ -40,6 +40,7 @@ const User: Lists.User = list({
       initialColumns: ['name', 'posts', 'avatar'],
     },
   },
+  db: { idField: { kind: 'autoincrement', type: 'BigInt' } },
   fields: {
     /** The user's first and last name. */
     name: text({ validation: { isRequired: true } }),
@@ -68,7 +69,7 @@ const User: Lists.User = list({
     }),
     roles: text({}),
     phoneNumbers: relationship({
-      ref: 'PhoneNumber.user',
+      ref: 'PhoneNumber',
       many: true,
       ui: {
         // TODO: Work out how to use custom views to customise the card + edit / create forms
@@ -90,17 +91,94 @@ const User: Lists.User = list({
         },
       }),
     }),
+    // 1:1 from User -> List1 ONE WAY
+    list1: relationship({ ref: 'List1', many: false }),
+    // 1:n from User -> List2 ONE WAY
+    list2s: relationship({ ref: 'List2', many: true }),
+    // 1:1 from User -> List3 TWO WAY
+    list3: relationship({ ref: 'List3.user', many: false }),
+    // 1:n from User -> List4 TWO WAY
+    list4s: relationship({ ref: 'List4.user', many: true }),
+    // n:n from User -> List5 TWO WAY
+    list5s: relationship({ ref: 'List5.users', many: true }),
+    // n:n from User -> List6 TWO ONE WAY
+    list6s: relationship({ ref: 'List6', many: true }),
+    // 1:1 from User -> List7 TWO ONE WAY
+    list7: relationship({ ref: 'List7', many: false }),
+    // 1:n from User -> List8 TWO ONE WAY
+    list8: relationship({ ref: 'List8', many: true }),
   },
 });
 
 export const lists: Lists = {
   User,
+  List1: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+    }
+  }),
+  List2: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+    }
+  }),
+  List3: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // 1:1 from User -> List3 TWO WAY
+      user: relationship({ ref: 'User.list3', many: false }),
+    }
+  }),
+  List4: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // 1:n from User -> List4 TWO WAY
+      user: relationship({ ref: 'User.list4s', many: false }),
+    }
+  }),
+  List5: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // n:n from User -> List5 TWO WAY
+      users: relationship({ ref: 'User.list5s', many: true }),
+    }
+  }),
+  List6: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // many to many from User -> List6 TWO ONE WAY
+      users: relationship({ ref: 'User', many: true }),
+    }
+  }),
+  List7: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // 1:1 from User -> List7 TWO ONE WAY
+      user: relationship({ ref: 'User', many: false }),
+    }
+  }),
+  List8: list({
+    access: allowAll,
+    fields: {
+      name: text({}),
+      // 1:n from User -> List8 TWO ONE WAY
+      user: relationship({ ref: 'User', many: false }),
+    }
+  }),
   PhoneNumber: list({
     access: allowAll,
     ui: {
       isHidden: true,
       // parentRelationship: 'user',
     },
+    db: { idField: { kind: 'autoincrement', type: 'BigInt' } },
     fields: {
       label: virtual({
         field: graphql.field({
@@ -118,7 +196,7 @@ export const lists: Lists = {
           },
         },
       }),
-      user: relationship({ ref: 'User.phoneNumbers' }),
+      user: relationship({ ref: 'User' }),
       type: select({
         options: [
           { label: 'Home', value: 'home' },
@@ -134,6 +212,7 @@ export const lists: Lists = {
   }),
   Post: list({
     access: allowAll,
+    db: { idField: { kind: 'autoincrement', type: 'BigInt' } },
     fields: {
       title: text({ access: {} }),
       status: select({
@@ -199,7 +278,7 @@ export const extendGraphqlSchema = graphQLSchemaExtension<Context>({
   `,
   resolvers: {
     RandomNumber: {
-      number(rootVal: { number: number }) {
+      number(rootVal: { number: number; }) {
         return rootVal.number * 1000;
       },
     },
