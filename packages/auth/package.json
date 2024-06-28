@@ -1,21 +1,21 @@
 {
-  "name": "@keystone-6/auth",
-  "version": "8.0.0",
+  "name": "@k6js-next/auth-next",
+  "version": "0.0.0-20240627-01",
   "license": "MIT",
-  "main": "dist/keystone-6-auth.cjs.js",
-  "module": "dist/keystone-6-auth.esm.js",
+  "main": "dist/k6js-next-auth-next.cjs.js",
+  "module": "dist/k6js-next-auth-next.esm.js",
   "exports": {
     ".": {
-      "module": "./dist/keystone-6-auth.esm.js",
-      "default": "./dist/keystone-6-auth.cjs.js"
+      "module": "./dist/k6js-next-auth-next.esm.js",
+      "default": "./dist/k6js-next-auth-next.cjs.js"
     },
     "./pages/InitPage": {
-      "module": "./pages/InitPage/dist/keystone-6-auth-pages-InitPage.esm.js",
-      "default": "./pages/InitPage/dist/keystone-6-auth-pages-InitPage.cjs.js"
+      "module": "./pages/InitPage/dist/k6js-next-auth-next-pages-InitPage.esm.js",
+      "default": "./pages/InitPage/dist/k6js-next-auth-next-pages-InitPage.cjs.js"
     },
     "./pages/SigninPage": {
-      "module": "./pages/SigninPage/dist/keystone-6-auth-pages-SigninPage.esm.js",
-      "default": "./pages/SigninPage/dist/keystone-6-auth-pages-SigninPage.cjs.js"
+      "module": "./pages/SigninPage/dist/k6js-next-auth-next-pages-SigninPage.esm.js",
+      "default": "./pages/SigninPage/dist/k6js-next-auth-next-pages-SigninPage.cjs.js"
     },
     "./package.json": "./package.json"
   },
