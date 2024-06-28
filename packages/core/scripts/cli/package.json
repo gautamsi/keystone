@@ -1,4 +1,4 @@
 {
-  "main": "dist/keystone-6-core-scripts-cli.cjs.js",
-  "module": "dist/keystone-6-core-scripts-cli.esm.js"
+  "main": "dist/k6js-next-core-next-scripts-cli.cjs.js",
+  "module": "dist/k6js-next-core-next-scripts-cli.esm.js"
 }
