@@ -2,7 +2,8 @@ import { config } from '@keystone-6/core';
 import { statelessSessions } from '@keystone-6/core/session';
 import { createAuth } from '@keystone-6/auth';
 
-import { lists, extendGraphqlSchema } from './schema';
+// import { extendGraphqlSchema } from './schema';
+import { lists } from './schemas';
 
 let sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';
 let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
@@ -55,7 +56,7 @@ export default auth.withAuth(
       },
     },
     lists,
-    extendGraphqlSchema,
+    // extendGraphqlSchema,
     session: statelessSessions({ maxAge: sessionMaxAge, secret: sessionSecret }),
     // TODO -- Create a separate example for stored/redis sessions
     // session: storedSessions({

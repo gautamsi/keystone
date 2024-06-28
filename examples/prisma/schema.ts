@@ -69,7 +69,7 @@ const User: Lists.User = list({
     }),
     roles: text({}),
     phoneNumbers: relationship({
-      ref: 'PhoneNumber',
+      ref: 'PhoneNumber.user',
       many: true,
       ui: {
         // TODO: Work out how to use custom views to customise the card + edit / create forms
@@ -196,8 +196,9 @@ export const lists: Lists = {
           },
         },
       }),
-      user: relationship({ ref: 'User' }),
+      user: relationship({ ref: 'User.phoneNumbers' }),
       type: select({
+        type: 'enum',
         options: [
           { label: 'Home', value: 'home' },
           { label: 'Work', value: 'work' },
@@ -246,7 +247,7 @@ export const lists: Lists = {
         links: true,
         dividers: true,
       }),
-      publishDate: timestamp(),
+      publishDate: timestamp({ defaultValue: { kind: 'now' }, db: { updatedAt: true } }),
       author: relationship({
         ref: 'User.posts',
         ui: {

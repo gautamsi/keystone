@@ -1,6 +1,6 @@
 
 import { list } from '@keystone-6/core';
-import { text,checkbox,timestamp,relationship } from '@keystone-6/core/fields';
+import { text, checkbox, timestamp, relationship, password } from '@keystone-6/core/fields';
 import { allowAll } from '@keystone-6/core/access';
 import { Lists } from '.keystone/types';
 
@@ -9,9 +9,10 @@ export const User: Lists.User = list({
   db: { idField: { kind: 'autoincrement', type: 'Int' } },
   fields: {
     name: text({  }),
-    email: text({  }),
-    phone: text({  }),
-    password: text({  }),
+    isAdmin: checkbox({}),
+    email: text({ isIndexed: 'unique' }),
+    phone: text({}),
+    password: password({}),
     role: text({ defaultValue: 'user' }),
     rememberToken: text({  }),
     facebookId: text({  }),
