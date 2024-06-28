@@ -1,174 +1,166 @@
 
-import { Address } from './address';
-import { AnalyticsConfig } from './analyticsConfig';
-import { BatchJob } from './batchJob';
-import { Cart } from './cart';
-import { CartDiscount } from './cartDiscount';
-import { CartGiftCard } from './cartGiftCard';
-import { ClaimImage } from './claimImage';
-import { ClaimItem } from './claimItem';
-import { ClaimItemTag } from './claimItemTag';
-import { ClaimOrder } from './claimOrder';
-import { ClaimTag } from './claimTag';
-import { Country } from './country';
-import { Currency } from './currency';
-import { CustomShippingOption } from './customShippingOption';
-import { Customer } from './customer';
-import { CustomerGroup } from './customerGroup';
-import { CustomerGroupCustomer } from './customerGroupCustomer';
-import { Discount } from './discount';
-import { DiscountCondition } from './discountCondition';
-import { DiscountConditionCustomerGroup } from './discountConditionCustomerGroup';
-import { DiscountConditionProduct } from './discountConditionProduct';
-import { DiscountConditionProductCollection } from './discountConditionProductCollection';
-import { DiscountConditionProductTag } from './discountConditionProductTag';
-import { DiscountConditionProductType } from './discountConditionProductType';
-import { DiscountRegion } from './discountRegion';
-import { DiscountRule } from './discountRule';
-import { DiscountRuleProduct } from './discountRuleProduct';
-import { DraftOrder } from './draftOrder';
-import { Fulfillment } from './fulfillment';
-import { FulfillmentItem } from './fulfillmentItem';
-import { FulfillmentProvider } from './fulfillmentProvider';
-import { GiftCard } from './giftCard';
-import { GiftCardTransaction } from './giftCardTransaction';
-import { IdempotencyKey } from './idempotencyKey';
-import { Image } from './image';
-import { Invite } from './invite';
-import { LineItem } from './lineItem';
-import { LineItemAdjustment } from './lineItemAdjustment';
-import { LineItemTaxLine } from './lineItemTaxLine';
-import { Migration } from './migration';
-import { MoneyAmount } from './moneyAmount';
-import { Note } from './note';
-import { Notification } from './notification';
-import { NotificationProvider } from './notificationProvider';
-import { Oauth } from './oauth';
-import { Order } from './order';
-import { OrderDiscount } from './orderDiscount';
-import { OrderGiftCard } from './orderGiftCard';
-import { Payment } from './payment';
-import { PaymentProvider } from './paymentProvider';
-import { PaymentSession } from './paymentSession';
-import { PriceList } from './priceList';
-import { PriceListCustomerGroup } from './priceListCustomerGroup';
-import { Product } from './product';
-import { ProductCollection } from './productCollection';
-import { ProductImage } from './productImage';
-import { ProductOption } from './productOption';
-import { ProductOptionValue } from './productOptionValue';
-import { ProductTag } from './productTag';
-import { ProductTag } from './productTag';
-import { ProductTaxRate } from './productTaxRate';
-import { ProductType } from './productType';
-import { ProductTypeTaxRate } from './productTypeTaxRate';
-import { ProductVariant } from './productVariant';
-import { Refund } from './refund';
-import { Region } from './region';
-import { RegionFulfillmentProvider } from './regionFulfillmentProvider';
-import { RegionPaymentProvider } from './regionPaymentProvider';
-import { Renamedreturn } from './renamedreturn';
-import { ReturnItem } from './returnItem';
-import { ReturnReason } from './returnReason';
-import { ShippingMethod } from './shippingMethod';
-import { ShippingMethodTaxLine } from './shippingMethodTaxLine';
-import { ShippingOption } from './shippingOption';
-import { ShippingOptionRequirement } from './shippingOptionRequirement';
-import { ShippingProfile } from './shippingProfile';
-import { ShippingTaxRate } from './shippingTaxRate';
-import { StagedJob } from './stagedJob';
-import { Store } from './store';
-import { StoreCurrency } from './storeCurrency';
-import { Swap } from './swap';
-import { TaxProvider } from './taxProvider';
-import { TaxRate } from './taxRate';
-import { TrackingLink } from './trackingLink';
 import { User } from './user';
+import { InvitationCode } from './invitationCode';
+import { AuthorizationCode } from './authorizationCode';
+import { PersonalAccessToken } from './personalAccessToken';
+import { Organization } from './organization';
+import { ExternalAccount } from './externalAccount';
+import { IntegrationAuthMethod } from './integrationAuthMethod';
+import { IntegrationDefinition } from './integrationDefinition';
+import { Integration } from './integration';
+import { IntegrationConnection } from './integrationConnection';
+import { ConnectionAttempt } from './connectionAttempt';
+import { OrgMember } from './orgMember';
+import { OrgMemberInvite } from './orgMemberInvite';
+import { RuntimeEnvironment } from './runtimeEnvironment';
+import { Project } from './project';
+import { Endpoint } from './endpoint';
+import { EndpointIndex } from './endpointIndex';
+import { Job } from './job';
+import { JobVersion } from './jobVersion';
+import { EventExample } from './eventExample';
+import { ConcurrencyLimitGroup } from './concurrencyLimitGroup';
+import { JobQueue } from './jobQueue';
+import { JobAlias } from './jobAlias';
+import { JobIntegration } from './jobIntegration';
+import { RunConnection } from './runConnection';
+import { DynamicTrigger } from './dynamicTrigger';
+import { EventDispatcher } from './eventDispatcher';
+import { EventRecord } from './eventRecord';
+import { JobRun } from './jobRun';
+import { JobCounter } from './jobCounter';
+import { JobRunAutoYieldExecution } from './jobRunAutoYieldExecution';
+import { JobRunSubscription } from './jobRunSubscription';
+import { JobRunExecution } from './jobRunExecution';
+import { Task } from './task';
+import { TaskAttempt } from './taskAttempt';
+import { JobRunStatusRecord } from './jobRunStatusRecord';
+import { SecretReference } from './secretReference';
+import { SecretStore } from './secretStore';
+import { TriggerSource } from './triggerSource';
+import { TriggerSourceOption } from './triggerSourceOption';
+import { Webhook } from './webhook';
+import { WebhookEnvironment } from './webhookEnvironment';
+import { WebhookRequestDelivery } from './webhookRequestDelivery';
+import { WebhookDeliveryCounter } from './webhookDeliveryCounter';
+import { DynamicTriggerRegistration } from './dynamicTriggerRegistration';
+import { HttpSourceRequestDelivery } from './httpSourceRequestDelivery';
+import { ScheduleSource } from './scheduleSource';
+import { TriggerHttpEndpoint } from './triggerHttpEndpoint';
+import { TriggerHttpEndpointEnvironment } from './triggerHttpEndpointEnvironment';
+import { KeyValueItem } from './keyValueItem';
+import { MissingConnection } from './missingConnection';
+import { ApiIntegrationVote } from './apiIntegrationVote';
+import { DataMigration } from './dataMigration';
+import { DeferredScheduledEventService } from './deferredScheduledEventService';
+import { BackgroundWorker } from './backgroundWorker';
+import { BackgroundWorkerTask } from './backgroundWorkerTask';
+import { TaskRun } from './taskRun';
+import { TaskRunDependency } from './taskRunDependency';
+import { TaskRunCounter } from './taskRunCounter';
+import { TaskRunNumberCounter } from './taskRunNumberCounter';
+import { TaskTag } from './taskTag';
+import { TaskRunAttempt } from './taskRunAttempt';
+import { TaskEvent } from './taskEvent';
+import { TaskQueue } from './taskQueue';
+import { BatchTaskRun } from './batchTaskRun';
+import { BatchTaskRunItem } from './batchTaskRunItem';
+import { EnvironmentVariable } from './environmentVariable';
+import { EnvironmentVariableValue } from './environmentVariableValue';
+import { Checkpoint } from './checkpoint';
+import { CheckpointRestoreEvent } from './checkpointRestoreEvent';
+import { WorkerDeployment } from './workerDeployment';
+import { WorkerDeploymentPromotion } from './workerDeploymentPromotion';
+import { TaskSchedule } from './taskSchedule';
+import { TaskScheduleInstance } from './taskScheduleInstance';
+import { RuntimeEnvironmentSession } from './runtimeEnvironmentSession';
+import { ProjectAlertChannel } from './projectAlertChannel';
+import { ProjectAlert } from './projectAlert';
+import { ProjectAlertStorage } from './projectAlertStorage';
+import { OrganizationIntegration } from './organizationIntegration';
+import { BulkActionGroup } from './bulkActionGroup';
+import { BulkActionItem } from './bulkActionItem';
 
 export const lists = {
-  Address,
-  AnalyticsConfig,
-  BatchJob,
-  Cart,
-  CartDiscount,
-  CartGiftCard,
-  ClaimImage,
-  ClaimItem,
-  ClaimItemTag,
-  ClaimOrder,
-  ClaimTag,
-  Country,
-  Currency,
-  CustomShippingOption,
-  Customer,
-  CustomerGroup,
-  CustomerGroupCustomer,
-  Discount,
-  DiscountCondition,
-  DiscountConditionCustomerGroup,
-  DiscountConditionProduct,
-  DiscountConditionProductCollection,
-  DiscountConditionProductTag,
-  DiscountConditionProductType,
-  DiscountRegion,
-  DiscountRule,
-  DiscountRuleProduct,
-  DraftOrder,
-  Fulfillment,
-  FulfillmentItem,
-  FulfillmentProvider,
-  GiftCard,
-  GiftCardTransaction,
-  IdempotencyKey,
-  Image,
-  Invite,
-  LineItem,
-  LineItemAdjustment,
-  LineItemTaxLine,
-  Migration,
-  MoneyAmount,
-  Note,
-  Notification,
-  NotificationProvider,
-  Oauth,
-  Order,
-  OrderDiscount,
-  OrderGiftCard,
-  Payment,
-  PaymentProvider,
-  PaymentSession,
-  PriceList,
-  PriceListCustomerGroup,
-  Product,
-  ProductCollection,
-  ProductImage,
-  ProductOption,
-  ProductOptionValue,
-  ProductTag,
-  ProductTag,
-  ProductTaxRate,
-  ProductType,
-  ProductTypeTaxRate,
-  ProductVariant,
-  Refund,
-  Region,
-  RegionFulfillmentProvider,
-  RegionPaymentProvider,
-  Renamedreturn,
-  ReturnItem,
-  ReturnReason,
-  ShippingMethod,
-  ShippingMethodTaxLine,
-  ShippingOption,
-  ShippingOptionRequirement,
-  ShippingProfile,
-  ShippingTaxRate,
-  StagedJob,
-  Store,
-  StoreCurrency,
-  Swap,
-  TaxProvider,
-  TaxRate,
-  TrackingLink,
-  User
+  User,
+  InvitationCode,
+  AuthorizationCode,
+  PersonalAccessToken,
+  Organization,
+  ExternalAccount,
+  IntegrationAuthMethod,
+  IntegrationDefinition,
+  Integration,
+  IntegrationConnection,
+  ConnectionAttempt,
+  OrgMember,
+  OrgMemberInvite,
+  RuntimeEnvironment,
+  Project,
+  Endpoint,
+  EndpointIndex,
+  Job,
+  JobVersion,
+  EventExample,
+  ConcurrencyLimitGroup,
+  JobQueue,
+  JobAlias,
+  JobIntegration,
+  RunConnection,
+  DynamicTrigger,
+  EventDispatcher,
+  EventRecord,
+  JobRun,
+  JobCounter,
+  JobRunAutoYieldExecution,
+  JobRunSubscription,
+  JobRunExecution,
+  Task,
+  TaskAttempt,
+  JobRunStatusRecord,
+  SecretReference,
+  SecretStore,
+  TriggerSource,
+  TriggerSourceOption,
+  Webhook,
+  WebhookEnvironment,
+  WebhookRequestDelivery,
+  WebhookDeliveryCounter,
+  DynamicTriggerRegistration,
+  HttpSourceRequestDelivery,
+  ScheduleSource,
+  TriggerHttpEndpoint,
+  TriggerHttpEndpointEnvironment,
+  KeyValueItem,
+  MissingConnection,
+  ApiIntegrationVote,
+  DataMigration,
+  DeferredScheduledEventService,
+  BackgroundWorker,
+  BackgroundWorkerTask,
+  TaskRun,
+  TaskRunDependency,
+  TaskRunCounter,
+  TaskRunNumberCounter,
+  TaskTag,
+  TaskRunAttempt,
+  TaskEvent,
+  TaskQueue,
+  BatchTaskRun,
+  BatchTaskRunItem,
+  EnvironmentVariable,
+  EnvironmentVariableValue,
+  Checkpoint,
+  CheckpointRestoreEvent,
+  WorkerDeployment,
+  WorkerDeploymentPromotion,
+  TaskSchedule,
+  TaskScheduleInstance,
+  RuntimeEnvironmentSession,
+  ProjectAlertChannel,
+  ProjectAlert,
+  ProjectAlertStorage,
+  OrganizationIntegration,
+  BulkActionGroup,
+  BulkActionItem
 }
