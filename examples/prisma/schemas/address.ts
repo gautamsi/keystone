@@ -1,27 +1,34 @@
 
 import { list } from '@keystone-6/core';
-import { text,timestamp,relationship } from '@keystone-6/core/fields';
+import { text,timestamp,json,relationship } from '@keystone-6/core/fields';
 import { allowAll } from '@keystone-6/core/access';
 import { Lists } from '.keystone/types';
 
 export const Address: Lists.Address = list({
   access: allowAll,
-  db: { idField: { kind: 'autoincrement', type: 'BigInt' } },
+  
   fields: {
-    name: text({  }),
-    addressStreet_1: text({  }),
-    addressStreet_2: text({  }),
+    company: text({  }),
+    firstName: text({  }),
+    lastName: text({  }),
+    address_1: text({  }),
+    address_2: text({  }),
     city: text({  }),
-    state: text({  }),
-    zip: text({  }),
+    province: text({  }),
+    postalCode: text({  }),
     phone: text({  }),
-    fax: text({  }),
-    type: text({  }),
     createdAt: timestamp({ defaultValue: { kind: 'now' } }),
     updatedAt: timestamp({ defaultValue: { kind: 'now' }, db: { updatedAt: true } }),
-    company: relationship({ ref: 'Company.addresses' }),
-    country: relationship({ ref: 'Country.addresses' }),
-    customer: relationship({ ref: 'Customer.addresses' }),
-    user: relationship({ ref: 'User.addresses' })
+    deletedAt: timestamp({  }),
+    metadata: json({  }),
+    country: relationship({ ref: 'Country.address' }),
+    customerAddressCustomerIdTocustomer: relationship({ ref: 'Customer.addressAddressCustomerIdTocustomer' }),
+    cartAddressTocartBillingAddressId: relationship({ ref: 'Cart.addressAddressTocartBillingAddressId', many: true }),
+    cartAddressTocartShippingAddressId: relationship({ ref: 'Cart.addressAddressTocartShippingAddressId', many: true }),
+    claimOrder: relationship({ ref: 'ClaimOrder.address', many: true }),
+    customerAddressTocustomerBillingAddressId: relationship({ ref: 'Customer.addressAddressTocustomerBillingAddressId' }),
+    orderAddressToorderShippingAddressId: relationship({ ref: 'Order.addressAddressToorderShippingAddressId', many: true }),
+    orderAddressToorderBillingAddressId: relationship({ ref: 'Order.addressAddressToorderBillingAddressId', many: true }),
+    swap: relationship({ ref: 'Swap.address', many: true })
   }
 });

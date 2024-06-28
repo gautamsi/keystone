@@ -133,22 +133,22 @@ async function getListConfig(dmmf: DMMF.Document, name: string, listMap: ListInf
   console.log(listItem.pascal, model?.primaryKey, model?.uniqueFields, model?.uniqueIndexes);
   console.log(path.resolve(`./schemas/${listItem.singular}`));
   fs.mkdirSync(`./schemas/`, { recursive: true });
-  // console.log(listConfig.fields.length);
-  // console.log(listConfig.fields.join('\n'));
-//   fs.writeFileSync(`./schemas/${camelCase(listItem.singular)}.ts`, `
-// import { list } from '@keystone-6/core';
-// import { ${uniq(listImports).join(',')} } from '@keystone-6/core/fields';
-// import { allowAll } from '@keystone-6/core/access';
-// import { Lists } from '.keystone/types';
+  console.log(listConfig.fields.length);
+  console.log(listConfig.fields.join('\n'));
+  fs.writeFileSync(`./schemas/${camelCase(listItem.singular)}.ts`, `
+import { list } from '@keystone-6/core';
+import { ${uniq(listImports).join(',')} } from '@keystone-6/core/fields';
+import { allowAll } from '@keystone-6/core/access';
+import { Lists } from '.keystone/types';
 
-// export const ${listItem.pascal}: Lists.${listItem.pascal} = list({
-//   access: allowAll,
-//   ${listConfig.db}
-//   fields: {
-//     ${listConfig.fields.join(',\n    ')}
-//   }
-// });
-// `, 'utf8');
+export const ${listItem.pascal}: Lists.${listItem.pascal} = list({
+  access: allowAll,
+  ${listConfig.db}
+  fields: {
+    ${listConfig.fields.join(',\n    ')}
+  }
+});
+`, 'utf8');
 
   return [listItem.pascal, `./${camelCase(listItem.singular)}`];
 }

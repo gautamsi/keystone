@@ -8,9 +8,12 @@ export const Country: Lists.Country = list({
   access: allowAll,
   db: { idField: { kind: 'autoincrement', type: 'Int' } },
   fields: {
-    code: text({  }),
+    iso_2: text({  }),
+    iso_3: text({  }),
+    numCode: integer({  }),
     name: text({  }),
-    phonecode: integer({  }),
-    addresses: relationship({ ref: 'Address.country', many: true })
+    displayName: text({  }),
+    region: relationship({ ref: 'Region.country' }),
+    address: relationship({ ref: 'Address.country', many: true })
   }
 });
