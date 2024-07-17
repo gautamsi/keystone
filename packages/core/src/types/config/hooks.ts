@@ -121,7 +121,7 @@ export type FieldHooks<
   /**
    * Used to **validate** if a create, update or delete operation is OK
    */
-  validate?:{
+  validate?: {
     create?: ValidateFieldHook<ListTypeInfo, 'create', FieldKey>
     update?: ValidateFieldHook<ListTypeInfo, 'update', FieldKey>
     delete?: ValidateFieldHook<ListTypeInfo, 'delete', FieldKey>

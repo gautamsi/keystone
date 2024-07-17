@@ -9,7 +9,7 @@ import {
 import { graphql } from '../../..'
 import { filters } from '../../filters'
 import { makeValidateHook } from '../../non-null-graphql'
-import { mergeFieldHooks } from '../../resolve-hooks'
+import { merge } from '../../resolve-hooks'
 
 export type FloatFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
   CommonFieldConfig<ListTypeInfo> & {
@@ -27,7 +27,7 @@ export type FloatFieldConfig<ListTypeInfo extends BaseListTypeInfo> =
     }
   }
 
-export function float <ListTypeInfo extends BaseListTypeInfo>(config: FloatFieldConfig<ListTypeInfo> = {}): FieldTypeFunc<ListTypeInfo> {
+export function float <ListTypeInfo extends BaseListTypeInfo> (config: FloatFieldConfig<ListTypeInfo> = {}): FieldTypeFunc<ListTypeInfo> {
   const {
     defaultValue,
     isIndexed,
@@ -87,7 +87,14 @@ export function float <ListTypeInfo extends BaseListTypeInfo>(config: FloatField
       extendPrismaSchema: config.db?.extendPrismaSchema,
     })({
       ...config,
-      hooks: mergeFieldHooks({ validate }, config.hooks),
+      hooks: {
+        ...config.hooks,
+        validate: {
+          ...config.hooks?.validate,
+          create: merge(config.hooks?.validate?.create, validate),
+          update: merge(config.hooks?.validate?.update, validate),
+        },
+      },
       input: {
         uniqueWhere: isIndexed === 'unique' ? { arg: graphql.arg({ type: graphql.Float }) } : undefined,
         where: {
