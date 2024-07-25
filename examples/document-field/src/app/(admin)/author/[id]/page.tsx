@@ -2,7 +2,7 @@ import { type GetStaticPathsResult, type GetStaticPropsContext } from 'next'
 import Link from 'next/link'
 import React from 'react'
 import { DocumentRenderer } from '@keystone-6/document-renderer'
-import { fetchGraphQL, gql } from '../../../../utils'
+import { fetchGraphQL, gql } from "../../../utils";
 
 export default async function Post ({ params }: any) {
 const data = await fetchGraphQL(

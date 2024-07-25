@@ -1,8 +1,12 @@
 import Link from 'next/link'
 import React from 'react'
-import { fetchGraphQL, gql } from '../utils'
+import { fetchGraphQL, gql } from "../utils";
 
-type Author = { id: string, name: string, posts: { id: string, slug: string, title: string }[] }
+type Author = {
+  id: string
+  name: string
+  posts: { id: string, slug: string, title: string }[]
+}
 
 export default async function Index () {
   const data = await fetchGraphQL(gql`
@@ -10,7 +14,10 @@ export default async function Index () {
       authors {
         id
         name
-        posts(where: { status: { equals: published } }, orderBy: { publishDate: desc }) {
+        posts(
+          where: { status: { equals: published } }
+          orderBy: { publishDate: desc }
+        ) {
           id
           slug
           title
@@ -25,13 +32,13 @@ export default async function Index () {
     <>
       <h1>Keystone Blog Project - Home</h1>
       <ul>
-        {authors.map(author => (
+        {authors.map((author) => (
           <li key={author.id}>
             <h2>
               <Link href={`/author/${author.id}`}>{author.name}</Link>
             </h2>
             <ul>
-              {author.posts.map(post => (
+              {author.posts.map((post) => (
                 <li key={post.id}>
                   <Link href={`/post/${post.slug}`}>{post.title}</Link>
                 </li>

@@ -20,15 +20,15 @@ export function writeAdminFiles (config: __ResolvedKeystoneConfig,
   const ext = config.ui?.tsx ? 'tsx' : 'js'
   return [
     {
-      mode: 'write',
+      mode: 'write' as const,
       src: nextConfigTemplate(),
       outputPath: `${srcExists ? '../' : ''}../../next.config.mjs`,
     },
-    { mode: 'write', src: noAccessTemplate(config.session), outputPath: `no-access/page.${ext}` },
-    { mode: 'write', src: adminLayoutTemplate(), outputPath: `layout.${ext}` },
-    { mode: 'write', src: adminRootLayoutTemplate(), outputPath: `../layout.${ext}` },
+    { mode: 'write' as const, src: noAccessTemplate(config.session), outputPath: `no-access/page.${ext}` },
+    { mode: 'write' as const, src: adminLayoutTemplate(), outputPath: `layout.${ext}` },
+    { mode: 'write' as const, src: adminRootLayoutTemplate(), outputPath: `../layout.${ext}` },
     {
-      mode: 'write',
+      mode: 'write' as const,
       src: adminConfigTemplate(
         adminMeta,
         graphQLSchema,
