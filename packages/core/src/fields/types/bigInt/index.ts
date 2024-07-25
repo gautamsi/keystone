@@ -128,7 +128,8 @@ export function bigInt <ListTypeInfo extends BaseListTypeInfo> (config: BigIntFi
         ...config.hooks,
         validate: {
           ...config.hooks?.validate,
-          create: merge(config.hooks?.validate?.create, validate),
+          create: merge(validate, config.hooks?.validate?.create),
+          update: merge(validate, config.hooks?.validate?.update),
         }
       },
       input: {

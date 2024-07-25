@@ -146,8 +146,8 @@ export function text <ListTypeInfo extends BaseListTypeInfo> (
         ...config.hooks,
         validate: {
           ...config.hooks?.validate,
-          create: merge(config.hooks?.validate?.create, validate),
-          update: merge(config.hooks?.validate?.update, validate),
+          create: merge(validate, config.hooks?.validate?.create),
+          update: merge(validate, config.hooks?.validate?.update),
         },
       },
       input: {
