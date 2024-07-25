@@ -97,10 +97,12 @@ function makeList ({
           beforeOperation: hooks.beforeOperation ? {
             create: makeThrower(`${__name}_FBO`),
             update: makeThrower(`${__name}_FBO`),
+            delete: makeThrower(`${__name}_FBO`),
           } : undefined,
           afterOperation: hooks.afterOperation ? {
             create: makeThrower(`${__name}_FAO`),
             update: makeThrower(`${__name}_FAO`),
+            delete: makeThrower(`${__name}_FAO`),
           } : undefined
         }
       } : {}),
