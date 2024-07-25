@@ -25,7 +25,8 @@ export function writeAdminFiles (config: __ResolvedKeystoneConfig,
         adminMeta,
         graphQLSchema,
         { configFileExists },
-        config.graphql?.path || '/api/graphql'
+        config.graphql?.path || '/api/graphql',
+        config.ui?.basePath?.replace(/\/$/, '') || ''
       ),
       outputPath: `.admin/index.${ext}`,
       overwrite: true,
