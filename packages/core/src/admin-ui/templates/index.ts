@@ -14,14 +14,15 @@ import { nextConfigTemplate } from './next-config'
 export function writeAdminFiles (config: __ResolvedKeystoneConfig,
   graphQLSchema: GraphQLSchema,
   adminMeta: AdminMetaRootVal,
-  configFileExists: boolean
+  configFileExists: boolean,
+  srcExists: boolean,
 ) {
   const ext = config.ui?.tsx ? 'tsx' : 'js'
   return [
     {
       mode: 'write',
-      src: nextConfigTemplate(config.ui?.basePath),
-      outputPath: '../../next.config.mjs',
+      src: nextConfigTemplate(),
+      outputPath: `${srcExists ? '../' : ''}../../next.config.mjs`,
     },
     { mode: 'write', src: noAccessTemplate(config.session), outputPath: `no-access/page.${ext}` },
     { mode: 'write', src: adminLayoutTemplate(), outputPath: `layout.${ext}` },
