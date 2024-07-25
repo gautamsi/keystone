@@ -2,13 +2,14 @@ import { type GraphQLSchema } from 'graphql'
 import {
   type __ResolvedKeystoneConfig
 } from '../../types'
-import { type AdminMetaRootVal } from '../../lib/create-admin-meta'
-import { adminConfigTemplate, adminLayoutTemplate } from './app'
+import type { AdminMetaRootVal } from '../../lib/create-admin-meta'
+import { adminConfigTemplate, adminLayoutTemplate, adminRootLayoutTemplate } from './app'
 import { homeTemplate } from './home'
 import { listTemplate } from './list'
 import { itemTemplate } from './item'
 import { noAccessTemplate } from './no-access'
 import { createItemTemplate } from './create-item'
+import { nextConfigTemplate } from './next-config'
 
 export function writeAdminFiles (config: __ResolvedKeystoneConfig,
   graphQLSchema: GraphQLSchema,
@@ -17,8 +18,14 @@ export function writeAdminFiles (config: __ResolvedKeystoneConfig,
 ) {
   const ext = config.ui?.tsx ? 'tsx' : 'js'
   return [
+    {
+      mode: 'write',
+      src: nextConfigTemplate(config.ui?.basePath),
+      outputPath: '../../next.config.mjs',
+    },
     { mode: 'write', src: noAccessTemplate(config.session), outputPath: `no-access/page.${ext}` },
     { mode: 'write', src: adminLayoutTemplate(), outputPath: `layout.${ext}` },
+    { mode: 'write', src: adminRootLayoutTemplate(), outputPath: `../layout.${ext}` },
     {
       mode: 'write',
       src: adminConfigTemplate(
