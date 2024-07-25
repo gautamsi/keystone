@@ -4,7 +4,7 @@ import {
   type IdFieldConfig,
   type KeystoneConfig,
   type KeystoneContext,
-  type __ResolvedKeystoneConfig,
+  type ResolvedKeystoneConfig,
 } from '../types'
 import {
   idFieldType
@@ -54,10 +54,10 @@ function defaultIsAccessAllowed ({ session, sessionStrategy }: KeystoneContext) 
   return session !== undefined
 }
 
-async function noop () {}
+export async function noop () {}
 function identity<T> (x: T) { return x }
 
-export function resolveDefaults <TypeInfo extends BaseKeystoneTypeInfo> (config: KeystoneConfig<TypeInfo>, inject = false): __ResolvedKeystoneConfig<TypeInfo> {
+export function resolveDefaults <TypeInfo extends BaseKeystoneTypeInfo> (config: KeystoneConfig<TypeInfo>, inject = false): ResolvedKeystoneConfig<TypeInfo> {
   if (!['postgresql', 'sqlite', 'mysql'].includes(config.db.provider)) {
     throw new TypeError(`"db.provider" only supports "sqlite", "postgresql" or "mysql"`)
   }
