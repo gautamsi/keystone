@@ -1,6 +1,6 @@
 {
   "name": "@k6js-next/auth-next",
-  "version": "0.0.0-20240725-01",
+  "version": "0.0.0-20240728-01",
   "license": "MIT",
   "main": "dist/k6js-next-auth-next.cjs.js",
   "module": "dist/k6js-next-auth-next.esm.js",
