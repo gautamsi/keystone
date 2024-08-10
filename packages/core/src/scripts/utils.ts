@@ -14,7 +14,7 @@ export async function importBuiltKeystoneConfiguration (cwd: string) {
     return require(getBuiltKeystoneConfigurationPath(cwd)).default
   } catch (err: any) {
     if (err.code === 'MODULE_NOT_FOUND') {
-      console.error('🚨 keystone build has not been run')
+      console.error('🚨 keystone build has not been run', err)
       throw new ExitError(1)
     }
     throw err
