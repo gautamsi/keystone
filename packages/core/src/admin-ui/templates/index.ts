@@ -1,6 +1,6 @@
 import { type GraphQLSchema } from 'graphql'
 import { type ResolvedKeystoneConfig } from '../../types'
-import { type AdminMetaRootVal } from '../../lib/create-admin-meta'
+import type { AdminMetaRootVal } from '../../lib/create-admin-meta'
 import { adminConfigTemplate, adminLayoutTemplate, adminRootLayoutTemplate } from './app'
 import { homeTemplate } from './home'
 import { listTemplate } from './list'
