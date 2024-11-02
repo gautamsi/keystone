@@ -45,7 +45,7 @@ type FetchedFieldMeta = {
   listView: { fieldMode: 'read' | 'hidden' }
 }
 
-let listMetaGraphqlQuery: TypedDocumentNode<
+const listMetaGraphqlQuery: TypedDocumentNode<
   {
     keystone: {
       adminMeta: {
@@ -94,7 +94,7 @@ function useQueryParamsFromLocalStorage (listKey: string) {
   // MERGE QUERY PARAMS FROM CACHE WITH QUERY PARAMS FROM ROUTER
   useEffect(
     () => {
-      let hasSomeQueryParamsWhichAreAboutListPage = Object.keys(router.query).some(x => {
+      const hasSomeQueryParamsWhichAreAboutListPage = Object.keys(router.query).some(x => {
         return x.startsWith('!') || storeableQueries.includes(x)
       })
 
@@ -112,7 +112,7 @@ function useQueryParamsFromLocalStorage (listKey: string) {
     [localStorageKey]
   )
   useEffect(() => {
-    let queryParamsToSerialize: Record<string, string> = {}
+    const queryParamsToSerialize: Record<string, string> = {}
     Object.keys(router.query).forEach(key => {
       if (key.startsWith('!') || storeableQueries.includes(key)) {
         queryParamsToSerialize[key] = router.query[key] as string
@@ -577,8 +577,7 @@ function ListTable ({
   const list = useList(listKey)
   const { adminPath } = useKeystone()
   const { query } = useRouter()
-  const shouldShowLinkIcon =
-    !list.fields[selectedFields.keys().next().value].views.Cell.supportsLinkTo
+  const shouldShowLinkIcon = selectedFields.keys().some((k, i) => !list.fields[k].views.Cell.supportsLinkTo && i === 0)
   return (
     <Box paddingBottom="xlarge">
       <TableContainer>
@@ -621,9 +620,7 @@ function ListTable ({
           {shouldShowLinkIcon && <TableHeaderCell />}
           {[...selectedFields].map(path => {
             const label = list.fields[path].label
-            if (!orderableFields.has(path)) {
-              return <TableHeaderCell key={path}>{label}</TableHeaderCell>
-            }
+            if (!orderableFields.has(path)) return <TableHeaderCell key={path}>{label}</TableHeaderCell>
             return (
               <TableHeaderCell key={path}>
                 <Link
@@ -707,11 +704,9 @@ function ListTable ({
                 )}
                 {[...selectedFields].map((path, i) => {
                   const field = list.fields[path]
-                  let { Cell } = list.fields[path].views
+                  const { Cell } = list.fields[path].views
                   const itemForField: Record<string, any> = {}
-                  for (const graphqlField of getRootGraphQLFieldsFromFieldController(
-                    field.controller
-                  )) {
+                  for (const graphqlField of getRootGraphQLFieldsFromFieldController(field.controller)) {
                     const fieldGetter = itemGetter.get(graphqlField)
                     if (fieldGetter.errors) {
                       const errorMessage = fieldGetter.errors[0].message
@@ -760,7 +755,7 @@ function ListTable ({
   )
 }
 
-const TableContainer = ({ children }: { children: ReactNode }) => {
+function TableContainer ({ children }: { children: ReactNode }) {
   return (
     <table
       css={{
@@ -776,7 +771,7 @@ const TableContainer = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const TableHeaderRow = ({ children }: { children: ReactNode }) => {
+function TableHeaderRow ({ children }: { children: ReactNode }) {
   return (
     <thead>
       <tr>{children}</tr>
@@ -784,7 +779,7 @@ const TableHeaderRow = ({ children }: { children: ReactNode }) => {
   )
 }
 
-const TableHeaderCell = (props: HTMLAttributes<HTMLElement>) => {
+function TableHeaderCell (props: HTMLAttributes<HTMLElement>) {
   const { colors, spacing, typography } = useTheme()
   return (
     <th
@@ -804,7 +799,7 @@ const TableHeaderCell = (props: HTMLAttributes<HTMLElement>) => {
   )
 }
 
-const TableBodyCell = (props: HTMLAttributes<HTMLElement>) => {
+function TableBodyCell (props: HTMLAttributes<HTMLElement>) {
   const { colors, typography } = useTheme()
   return (
     <td

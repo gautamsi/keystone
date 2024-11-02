@@ -128,7 +128,7 @@ export function HomePage () {
     }`,
     [lists]
   )
-  let { data, error } = useQuery(query, { errorPolicy: 'all' })
+  const { data, error } = useQuery(query, { errorPolicy: 'all' })
 
   const dataGetter = makeDataGetter(data, error?.graphQLErrors)
 

@@ -111,7 +111,8 @@ export function resolveDefaults<TypeInfo extends BaseKeystoneTypeInfo> (config: 
     },
     lists: injectIdField ? injectDefaults(config, defaultIdField) : config.lists as ResolvedKeystoneConfig['lists'],
     server: {
-      maxFileSize: 200 * 1024 * 1024, // 200 MiB
+      ...config.server,
+      maxFileSize: config.server?.maxFileSize ?? (200 * 1024 * 1024), // 200 MiB
       extendExpressApp: config.server?.extendExpressApp ?? noop,
       extendHttpServer: config.server?.extendHttpServer ?? noop,
       cors,
