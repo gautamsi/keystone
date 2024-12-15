@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation'
 import React, { type ReactNode, createContext, useContext, useMemo } from 'react'
 import { Center } from '@keystone-ui/core'
 import { ToastProvider } from '@keystone-ui/toast'

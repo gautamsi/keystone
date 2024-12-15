@@ -277,7 +277,7 @@ export const Cell: CellComponent<typeof controller> = ({ field, item }) => {
     <CellContainer>
       {displayItems.map((item, index) => (
         <Fragment key={item.id}>
-          {!!index ? ', ' : ''}
+          {index ? ', ' : ''}
           <Link href={`${adminPath}/${list.path}/[id]`} as={`${adminPath}/${list.path}/${item.id}`} css={styles}>
             {item.label || item.id}
           </Link>

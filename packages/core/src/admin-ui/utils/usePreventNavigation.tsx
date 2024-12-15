@@ -5,8 +5,8 @@ export function usePreventNavigation (shouldPreventNavigationRef: { current: boo
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const prevPathnameRef = useRef<string>()
-  const prevSearchParamsRef = useRef<ReadonlyURLSearchParams>()
+  const prevPathnameRef = useRef<string>('')
+  const prevSearchParamsRef = useRef<ReadonlyURLSearchParams>(null)
 
   useEffect(() => {
     prevPathnameRef.current = pathname

@@ -7,7 +7,6 @@ import {
   orderDirectionEnum,
 } from '../types'
 import { graphql } from '../types/schema'
-
 import { userInputError } from './core/graphql-errors'
 
 type IDType = string | number | null
