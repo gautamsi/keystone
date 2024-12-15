@@ -1,6 +1,4 @@
 import { getBuiltKeystoneConfigurationPath } from '../lib/createSystem'
-import fs from 'node:fs/promises'
-
 export class ExitError extends Error {
   code: number
   constructor (code: number) {
@@ -11,10 +9,13 @@ export class ExitError extends Error {
 
 // TODO: this cannot be changed for now, circular dependency with getSystemPaths, getEsbuildConfig
 export async function importBuiltKeystoneConfiguration (cwd: string) {
-  const builtConfigPath = getBuiltKeystoneConfigurationPath(cwd)
-  if (!(await fs.stat(builtConfigPath).catch(() => null))) {
-    console.error('🚨 keystone build has not been run')
-    throw new ExitError(1)
+  try {
+    return require(getBuiltKeystoneConfigurationPath(cwd)).default
+  } catch (err: any) {
+    if (err.code === 'MODULE_NOT_FOUND') {
+      console.error('🚨 keystone build has not been run', err)
+      throw new ExitError(1)
+    }
+    throw err
   }
-  return require(builtConfigPath).default
 }
