@@ -12,6 +12,7 @@ import { type ListMeta } from '../../../../types'
 import { useCreateItem } from '../../../../admin-ui/utils/useCreateItem'
 import { BaseToolbar, ColumnLayout, ItemPageHeader } from '../ItemPage/common'
 import { useRouter } from '../../../../admin-ui/router'
+import { type Usable, use } from 'react'
 
 function CreatePageForm (props: { list: ListMeta }) {
   const createItem = useCreateItem(props.list)
@@ -46,11 +47,12 @@ function CreatePageForm (props: { list: ListMeta }) {
   )
 }
 
-type CreateItemPageProps = { params: { listKey: string } }
+type CreateItemPageProps = { params: Usable<{ listKey: string }> }
 
 export function CreateItemPage ({ params }: CreateItemPageProps) {
   const { createViewFieldModes, listsKeyByPath } = useKeystone()
-  const list = useList(listsKeyByPath[params.listKey])
+  const _params = use<{listKey: string}>(params)
+  const list = useList(listsKeyByPath[_params.listKey])
 
   return (
     <PageContainer

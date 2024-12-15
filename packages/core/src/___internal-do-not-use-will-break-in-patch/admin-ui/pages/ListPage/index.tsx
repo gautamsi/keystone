@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 
-import { Fragment, type HTMLAttributes, type ReactNode, useEffect, useMemo, useState } from 'react'
+import { Fragment, type HTMLAttributes, type ReactNode, useEffect, useMemo, useState, use, type Usable } from 'react'
 
 import { Button } from '@keystone-ui/button'
 import { Box, Center, Heading, jsx, Stack, useTheme, VisuallyHidden } from '@keystone-ui/core'
@@ -36,7 +36,7 @@ import { useFilters } from './useFilters'
 import { useSelectedFields } from './useSelectedFields'
 import { useSort } from './useSort'
 
-type ListPageProps = { params: { listKey: string } }
+type ListPageProps = { params: Usable<{ listKey: string }> }
 
 type FetchedFieldMeta = {
   path: string
@@ -128,8 +128,9 @@ function useQueryParamsFromLocalStorage (listKey: string) {
 }
 
 export function ListPage ({ params }: ListPageProps) {
-  const { listsKeyByPath } = useKeystone()
-  const listKey = listsKeyByPath[params.listKey]
+  const keystone = useKeystone()
+  const _params = use<{listKey: string}>(params)
+  const listKey = keystone.listsKeyByPath[_params.listKey]
   const list = useList(listKey)
   const { query, push } = useRouter()
   const { resetToDefaults } = useQueryParamsFromLocalStorage(listKey)

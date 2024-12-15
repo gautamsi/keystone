@@ -7,6 +7,8 @@ import {
   type HTMLAttributes,
   memo,
   type ReactElement,
+  type Usable,
+  use,
   useCallback,
   useEffect,
   useMemo,
@@ -45,10 +47,10 @@ import { BaseToolbar, ColumnLayout, ItemPageHeader } from './common'
 import { useRouter } from '../../../../admin-ui/router'
 
 type ItemPageProps = {
-  params: { 
+  params: Usable<{ 
     id: string 
     listKey: string
-  }
+  }>
 }
 
 function useEventCallback<Func extends (...args: any) => any>(callback: Func): Func {
@@ -336,9 +338,10 @@ function DeleteButton ({
 
 export function ItemPage ({ params }: ItemPageProps) {
   const { listsKeyByPath } = useKeystone()
-  const listKey = listsKeyByPath[params.listKey]
+ const _params = use<{listKey: string, id: string}>(params)
+  const listKey = listsKeyByPath[_params.listKey]
   const list = useList(listKey)
-  const id = params.id as string
+  const id = _params.id as string
 
   const { query, selectedFields } = useMemo(() => {
     const selectedFields = Object.entries(list.fields)
