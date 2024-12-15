@@ -722,8 +722,8 @@ importers:
         specifier: ^5.0.2
         version: link:../../design-system/packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       next:
         specifier: ^15.1.0
         version: 15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -735,8 +735,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -769,8 +769,8 @@ importers:
         specifier: ^5.0.2
         version: link:../../design-system/packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       next:
         specifier: ^15.1.0
         version: 15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -782,8 +782,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -844,8 +844,8 @@ importers:
         specifier: ^6.0.2
         version: link:../../design-system/packages/icons
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       next:
         specifier: ^15.1.0
         version: 15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -857,8 +857,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -891,8 +891,8 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       next:
         specifier: ^15.1.0
         version: 15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -904,8 +904,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -998,8 +998,8 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       dotenv:
         specifier: ^16.0.0
         version: 16.4.7
@@ -1026,8 +1026,8 @@ importers:
         specifier: ^1.4.16
         version: 1.4.17
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1085,8 +1085,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       next:
         specifier: ^15.1.0
         version: 15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1098,8 +1098,8 @@ importers:
         version: 19.0.0(react@19.0.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1309,8 +1309,8 @@ importers:
         specifier: ^7.2.0
         version: link:../../design-system/packages/fields
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       graphql:
         specifier: ^16.8.1
         version: 16.9.0
@@ -1331,8 +1331,8 @@ importers:
         specifier: ^8.5.3
         version: 8.5.13
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1421,8 +1421,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       graphql:
         specifier: ^16.8.1
         version: 16.9.0
@@ -1449,8 +1449,8 @@ importers:
         specifier: ^19.0.0
         version: 19.0.1
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1470,8 +1470,8 @@ importers:
         specifier: ^4.0.0
         version: 4.0.0
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       graphql:
         specifier: ^16.8.1
         version: 16.9.0
@@ -1498,8 +1498,8 @@ importers:
         specifier: ^19.0.0
         version: 19.0.1
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1615,8 +1615,8 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       graphql:
         specifier: ^16.8.1
         version: 16.9.0
@@ -1634,8 +1634,8 @@ importers:
         specifier: ^8.0.0
         version: 8.57.1
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1681,12 +1681,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1697,12 +1697,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1713,12 +1713,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       tsx:
         specifier: ^4.0.0
         version: 4.19.2
@@ -1732,12 +1732,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       tsx:
         specifier: ^4.0.0
         version: 4.19.2
@@ -1754,15 +1754,15 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       '@types/node':
         specifier: ^20.14.10
         version: 20.17.9
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       tsx:
         specifier: ^4.0.0
         version: 4.19.2
@@ -1776,12 +1776,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1833,12 +1833,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1852,12 +1852,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -1868,12 +1868,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       tsx:
         specifier: ^4.0.0
         version: 4.19.2
@@ -1887,12 +1887,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       tsx:
         specifier: ^4.0.0
         version: 4.19.2
@@ -1906,12 +1906,12 @@ importers:
         specifier: ^6.3.1
         version: link:../../packages/core
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
     devDependencies:
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       typescript:
         specifier: ^5.5.0
         version: 5.7.2
@@ -2476,8 +2476,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/fields-document
       '@prisma/client':
-        specifier: 5.19.0
-        version: 5.19.0(prisma@5.19.0)
+        specifier: 5.22.0
+        version: 5.22.0(prisma@5.22.0)
       '@prisma/internals':
         specifier: ^5.0.0
         version: 5.22.0
@@ -2512,8 +2512,8 @@ importers:
         specifier: ^2.6.7
         version: 2.7.0
       prisma:
-        specifier: 5.19.0
-        version: 5.19.0
+        specifier: 5.22.0
+        version: 5.22.0
       supertest:
         specifier: ^6.1.6
         version: 6.3.4
