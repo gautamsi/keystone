@@ -21,7 +21,7 @@ function getSchema(field: { ref: string; many?: boolean }) {
           },
         }),
       },
-    })
+    }) as any
   ).graphQLSchema
 }
 
@@ -137,7 +137,7 @@ describe('Reference errors', () => {
       config({
         db: { url: 'file:./thing.db', provider: 'sqlite' },
         lists,
-      })
+      }) as any
     ).graphQLSchema
   }
 
