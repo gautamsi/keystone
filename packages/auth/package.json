@@ -1,6 +1,6 @@
 {
-  "name": "@keystone-6/auth",
-  "version": "8.1.0",
+  "name": "@k6js-next/auth-next",
+  "version": "0.0.0-20250622-02",
   "license": "MIT",
   "main": "dist/keystone-6-auth.cjs.js",
   "module": "dist/keystone-6-auth.esm.js",
