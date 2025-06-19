@@ -10,6 +10,7 @@ import {
   use,
   type Usable,
 } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { Button } from '@keystar/ui/button'
 import { Icon } from '@keystar/ui/icon'
@@ -41,7 +42,6 @@ import { GraphQLErrorNotice } from '../../../../admin-ui/components/GraphQLError
 import { CreateButtonLink } from '../../../../admin-ui/components/CreateButtonLink'
 import { ErrorDetailsDialog } from '../../../../admin-ui/components/Errors'
 import { BaseToolbar, ColumnLayout, ItemPageHeader, StickySidebar } from './common'
-import { useRouter } from '../../../../admin-ui/router'
 
 type ItemPageProps = {
   params: Usable<{

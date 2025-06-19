@@ -14,7 +14,7 @@ export { Router, withRouter } from 'next/router'
 import { useRouter as _useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link'
-import { type AnchorHTMLAttributes } from 'react'
+import { type AnchorHTMLAttributes, useState, useEffect } from 'react'
 
 export type LinkProps = NextLinkProps & AnchorHTMLAttributes<HTMLAnchorElement>
 
@@ -62,4 +62,36 @@ export function useRouter() {
   }
 
   return router
+}
+
+export type QueryParams = Record<string, string | null>
+
+export function useQueryParams() {
+  const pathname = usePathname()
+  const [query, setQuery] = useState<QueryParams>({})
+
+  // Update query state when URL changes
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const queryObj: QueryParams = {}
+
+    for (const [key, value] of params.entries()) {
+      queryObj[key] = value
+    }
+
+    setQuery(queryObj)
+  }, [pathname])
+
+  // Convert current query object to query string
+  const toQueryString = (params: QueryParams = query) => {
+    const searchParams = new URLSearchParams()
+    for (const key in params) {
+      if (params[key] !== null && params[key] !== undefined) {
+        searchParams.set(key, params[key] as string)
+      }
+    }
+    return `?${searchParams.toString()}`
+  }
+
+  return { query, toQueryString }
 }

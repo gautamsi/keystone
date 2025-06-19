@@ -1,8 +1,8 @@
 import NextHead from 'next/head'
+import { useRouter } from 'next/Navigation'
 
 import { gql, useMutation } from '@keystone-6/core/admin-ui/apollo'
 import { useKeystone, useList } from '@keystone-6/core/admin-ui/context'
-import { useRouter } from '@keystone-6/core/admin-ui/router'
 import { Fields, useBuildItem } from '@keystone-6/core/admin-ui/utils'
 import { GraphQLErrorNotice, Logo } from '@keystone-6/core/admin-ui/components'
 import { Button } from '@keystar/ui/button'

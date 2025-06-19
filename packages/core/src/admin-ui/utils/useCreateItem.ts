@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import { type ComponentProps, useEffect, useMemo, useRef, useState } from 'react'
 
 import { toastQueue } from '@keystar/ui/toast'
@@ -13,7 +14,6 @@ import {
   useInvalidFields,
 } from '../../admin-ui/utils'
 import { useKeystone } from '../context'
-import { useRouter } from '../router'
 
 type CreateItemHookResult = {
   state: 'editing' | 'loading' | 'created'
