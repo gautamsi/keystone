@@ -44,19 +44,20 @@ export function getHrefFromList(
   list: Pick<ListMeta, 'path' | 'isSingleton'>,
   adminPath: string = ''
 ) {
-  return `${adminPath}/${list.path}${list.isSingleton ? '/1' : `${adminPath}`}`
+  return `${adminPath}/${list.path}${list.isSingleton ? '/1' : ''}`
 }
 
 /** A navigation item represents a page in the AdminUI. */
 export function NavItem(props: NavItemProps) {
   const { children, href, isSelected: isSelectedProp } = props
   const pathname = usePathname()
+  const { adminPath } = useKeystone()
 
   let ariaCurrent: 'page' | boolean | undefined = isSelectedProp
   if (!ariaCurrent) {
     if (pathname === href) {
       ariaCurrent = 'page'
-    } else if (pathname.split('/')[1] === href.split('/')[1]) {
+    } else if (pathname.replace(`${adminPath}`, '').split('/')[1] === href.replace(`${adminPath}`, '').split('/')[1]) {
       ariaCurrent = true
     }
   }
@@ -93,7 +94,7 @@ export function Navigation() {
   return (
     <NavContainer>
       <NavList>
-        <NavItem href="/">Dashboard</NavItem>
+        <NavItem href={`${adminPath}/`}>Dashboard</NavItem>
         <Divider />
         {visibleLists.map((list: ListMeta) => (
           <NavItem key={list.key} href={getHrefFromList(list, adminPath)}>
