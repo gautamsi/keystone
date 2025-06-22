@@ -1,7 +1,8 @@
+'use client'
+import { useSearchParams } from 'next/navigation'
 import { useMemo } from 'react'
 
 import type { JSONValue, ListMeta } from '../../../../types'
-import { useQueryParams } from '../../../../admin-ui/router'
 
 export type Filter = {
   field: string
@@ -10,7 +11,7 @@ export type Filter = {
 }
 
 export function useFilters(list: ListMeta) {
-  const { query } = useQueryParams()
+  const searchParams = useSearchParams()
   const possibleFilters = useMemo(() => {
     const possibleFilters: Record<string, { type: string; field: string }> = {}
 
@@ -28,10 +29,9 @@ export function useFilters(list: ListMeta) {
   }, [list])
   const filters = useMemo(() => {
     const filters: Filter[] = []
-    for (const key in query) {
+    for (const [key, val] of searchParams.entries()) {
       const filter = possibleFilters[key]
       if (!filter) continue
-      const val = query[key]
       if (typeof val !== 'string') continue
       try {
         const value = JSON.parse(val)
@@ -47,6 +47,6 @@ export function useFilters(list: ListMeta) {
     })
 
     return { filters, where: { AND: where } }
-  }, [query, possibleFilters, list])
+  }, [searchParams, possibleFilters, list])
   return filters
 }
