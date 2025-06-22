@@ -1,13 +1,13 @@
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useRef } from 'react'
-import { useQueryParams, type QueryParams } from '../router'
 
 export function usePreventNavigation(shouldPreventNavigationRef: { current: boolean }) {
   const pathname = usePathname()
-  const { query } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
 
   const prevPathnameRef = useRef<string>(null)
-  const prevSearchParamsRef = useRef<QueryParams>(null)
+  const prevSearchParamsRef = useRef<Record<string, string | null>>(null)
 
   useEffect(() => {
     prevPathnameRef.current = pathname

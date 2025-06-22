@@ -1,5 +1,6 @@
+'use client'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { type Key, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
 import isDeepEqual from 'fast-deep-equal'
 
 import { ActionButton } from '@keystar/ui/button'
@@ -10,21 +11,22 @@ import { Text } from '@keystar/ui/typography'
 
 import { useList } from '../../../../admin-ui/context'
 import { useSelectedFields } from './useSelectedFields'
-import { useQueryParams } from '../../../../admin-ui/router'
+import { toQueryParams } from './lib'
 
 export function FieldSelection({ listKey, isDisabled }: { listKey: string; isDisabled?: boolean }) {
   const router = useRouter()
   const list = useList(listKey)
   const selectedFields = useSelectedFields(list)
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
 
   const setNewSelectedFields = (selectedFields: Key[]) => {
     // Clear the `fields` query param when selection matches initial columns
     if (isDeepEqual(selectedFields, list.initialColumns)) {
       const { fields: _ignore, ...otherQueryFields } = query
-      router.push(toQueryString(otherQueryFields))
+      router.push(toQueryParams(otherQueryFields))
     } else {
-      router.push(toQueryString({ ...query, fields: selectedFields.join(',') }))
+      router.push(toQueryParams({ ...query, fields: selectedFields.join(',') }))
     }
   }
 
