@@ -1,12 +1,12 @@
 import { type ReactNode, createContext, useContext, useEffect, useMemo } from 'react'
 import NextHead from 'next/head'
+import { useRouter } from 'next/navigation'
 import { createUploadLink } from 'apollo-upload-client'
 
 import { ClientSideOnlyDocumentElement, KeystarProvider } from '@keystar/ui/core'
 import { Toaster } from '@keystar/ui/toast'
 import { injectGlobal, tokenSchema } from '@keystar/ui/style'
 
-import { useRouter } from '@keystone-6/core/admin-ui/router'
 
 import type {
   AdminConfig,

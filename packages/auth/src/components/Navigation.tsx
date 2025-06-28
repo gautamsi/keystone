@@ -1,4 +1,5 @@
 import { useEffect, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { ActionButton } from '@keystar/ui/button'
 import { Divider } from '@keystar/ui/layout'
@@ -15,7 +16,6 @@ import {
   getHrefFromList,
 } from '@keystone-6/core/admin-ui/components'
 import type { NavigationProps } from '@keystone-6/core/admin-ui/components'
-import { useRouter } from '@keystone-6/core/admin-ui/router'
 import { useKeystone } from '@keystone-6/core/admin-ui/context'
 
 export default ({ labelField }: { labelField: string }) =>

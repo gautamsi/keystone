@@ -1,5 +1,6 @@
+'use client'
 import { type Usable, use } from 'react'
-
+import { useRouter } from 'next/navigation'
 import { Button } from '@keystar/ui/button'
 import { VStack } from '@keystar/ui/layout'
 
@@ -9,7 +10,6 @@ import { useKeystone, useList } from '../../../../admin-ui'
 import { GraphQLErrorNotice } from '../../../../admin-ui/components'
 import { useCreateItem } from '../../../../admin-ui/utils/useCreateItem'
 import { BaseToolbar, ColumnLayout, ItemPageHeader } from '../ItemPage/common'
-import { useRouter } from '../../../../admin-ui/router'
 
 export const getCreateItemPage = (props: Parameters<typeof CreateItemPage>[0]) => () => (
   <CreateItemPage {...props} />

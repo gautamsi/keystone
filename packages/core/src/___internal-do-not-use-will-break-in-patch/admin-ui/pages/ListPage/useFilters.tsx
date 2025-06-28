@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 
 import type { JSONValue, ListMeta } from '../../../../types'
-import { useRouter } from '../../../../admin-ui/router'
+import { useQueryParams } from '../../../../admin-ui/router'
 
 export type Filter = {
   field: string
@@ -10,7 +10,7 @@ export type Filter = {
 }
 
 export function useFilters(list: ListMeta) {
-  const { query } = useRouter()
+  const { query } = useQueryParams()
   const possibleFilters = useMemo(() => {
     const possibleFilters: Record<string, { type: string; field: string }> = {}
 
