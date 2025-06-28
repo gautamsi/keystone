@@ -1,9 +1,10 @@
-import { useQueryParams } from '../../../../admin-ui/router'
+'use client'
+import { useSearchParams } from 'next/navigation'
 import type { ListMeta } from '../../../../types'
 
 export function useSort(list: ListMeta) {
-  const { query } = useQueryParams()
-  const sortByFromUrl = typeof query.sortBy === 'string' ? query.sortBy : null
+  const searchParams = useSearchParams()
+  const sortByFromUrl = searchParams.get('sortBy')
   if (!sortByFromUrl) return null
   const fieldKey = sortByFromUrl.startsWith('-') ? sortByFromUrl.slice(1) : sortByFromUrl
   const direction = sortByFromUrl.startsWith('-') ? ('DESC' as const) : ('ASC' as const)

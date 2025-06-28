@@ -1,5 +1,5 @@
 import NextHead from 'next/head'
-import { useRouter } from 'next/Navigation'
+import { useRouter } from 'next/navigation'
 
 import { gql, useMutation } from '@keystone-6/core/admin-ui/apollo'
 import { useKeystone, useList } from '@keystone-6/core/admin-ui/context'

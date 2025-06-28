@@ -7,7 +7,6 @@ import { ClientSideOnlyDocumentElement, KeystarProvider } from '@keystar/ui/core
 import { Toaster } from '@keystar/ui/toast'
 import { injectGlobal, tokenSchema } from '@keystar/ui/style'
 
-
 import type {
   AdminConfig,
   AdminMeta,

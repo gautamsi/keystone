@@ -1,5 +1,5 @@
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { type Key, Fragment, useEffect, useMemo, useState, use, type Usable } from 'react'
-import { useRouter, usePathname } from 'next/navigation'
 
 import { ActionBar, ActionBarContainer, Item } from '@keystar/ui/action-bar'
 import { ActionButton } from '@keystar/ui/button'
@@ -24,6 +24,7 @@ import {
 import { toastQueue } from '@keystar/ui/toast'
 import { TooltipTrigger, Tooltip } from '@keystar/ui/tooltip'
 import { Heading, Text } from '@keystar/ui/typography'
+import { ProgressCircle } from '@keystar/ui/progress'
 
 import type { TypedDocumentNode } from '../../../../admin-ui/apollo'
 import { gql, useMutation, useQuery } from '../../../../admin-ui/apollo'
@@ -40,9 +41,8 @@ import { useFilters } from './useFilters'
 import { useSearchFilter } from '../../../../fields/types/relationship/views/useFilter'
 import { useSelectedFields } from './useSelectedFields'
 import { useSort } from './useSort'
-import { ProgressCircle } from '@keystar/ui/progress'
 import type { ListMeta } from '../../../../types'
-import { useQueryParams } from '../../../../admin-ui/router'
+import { toQueryParams } from './lib'
 
 type ListPageProps = { params: Usable<{ listKey: string }> }
 type SelectedKeys = 'all' | Set<number | string>
@@ -52,7 +52,8 @@ const storeableQueries = ['sortBy', 'fields']
 function useQueryParamsFromLocalStorage(listKey: string) {
   const router = useRouter()
   const pathname = usePathname()
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
   const localStorageKey = `keystone.list.${listKey}.list.page.info`
   const resetToDefaults = () => {
     localStorage.removeItem(localStorageKey)
@@ -71,7 +72,7 @@ function useQueryParamsFromLocalStorage(listKey: string) {
         parsed = JSON.parse(queryParamsFromLocalStorage!)
       } catch (err) {}
       if (parsed) {
-        router.replace(toQueryString({ ...query, ...parsed }))
+        router.replace(toQueryParams({ ...query, ...parsed }))
       }
     }
   }, [localStorageKey])
@@ -113,7 +114,8 @@ export function ListPage({ params }: ListPageProps) {
   const listKey = keystone.listsKeyByPath[_params.listKey]
   const list = useList(listKey)
   const router = useRouter()
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
   const { resetToDefaults } = useQueryParamsFromLocalStorage(listKey)
   const { currentPage, pageSize } = usePaginationParams({
     defaultPageSize: list.pageSize,
@@ -128,10 +130,12 @@ export function ListPage({ params }: ListPageProps) {
     if (!filters.filters.length) {
       const filters = getDefaultFilters(list)
       if (!filters.length) return
-      router.replace(toQueryString({
+      router.replace(
+        toQueryParams({
           ...query,
           ...Object.fromEntries(filters),
-        }))
+        })
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list])
@@ -187,9 +191,9 @@ export function ListPage({ params }: ListPageProps) {
     const { search, ...queries } = query
 
     if (value.trim()) {
-      router.push(toQueryString({ ...queries, search: value }))
+      router.push(toQueryParams({ ...queries, search: value }))
     } else {
-      router.push(toQueryString(queries))
+      router.push(toQueryParams(queries))
     }
   }
 
@@ -301,12 +305,13 @@ function ListTable({
   const list = useList(listKey)
   const { adminPath } = useKeystone()
   const router = useRouter()
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
   const [selectedKeys, setSelectedKeys] = useState<SelectedKeys>(() => new Set([]))
   const onSortChange = (sortDescriptor: SortDescriptor) => {
     const sortBy =
       sortDescriptor.direction === 'ascending' ? `-${sortDescriptor.column}` : sortDescriptor.column
-    router.push(toQueryString({ ...query, sortBy: sortBy as string }))
+    router.push(toQueryParams({ ...query, sortBy: sortBy as string }))
   }
   const selectionMode = allowDelete ? 'multiple' : 'none'
   const selectedItemCount = selectedKeys === 'all' ? 'all' : selectedKeys.size
