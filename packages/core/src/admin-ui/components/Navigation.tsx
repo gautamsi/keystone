@@ -1,4 +1,6 @@
 import { type ReactNode, type PropsWithChildren, useState } from 'react'
+import { usePathname } from 'next/navigation'
+
 import { ActionButton } from '@keystar/ui/button'
 import { DialogContainer } from '@keystar/ui/dialog'
 import { Icon } from '@keystar/ui/icon'
@@ -20,7 +22,6 @@ import { Text } from '@keystar/ui/typography'
 import type { ListMeta } from '../../types'
 import { useKeystone } from '../context'
 import { WelcomeDialog } from './WelcomeDialog'
-import { useRouter } from '../router'
 
 type NavItemProps = {
   /**
@@ -49,13 +50,13 @@ export function getHrefFromList(
 /** A navigation item represents a page in the AdminUI. */
 export function NavItem(props: NavItemProps) {
   const { children, href, isSelected: isSelectedProp } = props
-  const router = useRouter()
+  const pathname = usePathname()
 
   let ariaCurrent: 'page' | boolean | undefined = isSelectedProp
   if (!ariaCurrent) {
-    if (router.pathname === href) {
+    if (pathname === href) {
       ariaCurrent = 'page'
-    } else if (router.pathname.split('/')[1] === href.split('/')[1]) {
+    } else if (pathname.split('/')[1] === href.split('/')[1]) {
       ariaCurrent = true
     }
   }
