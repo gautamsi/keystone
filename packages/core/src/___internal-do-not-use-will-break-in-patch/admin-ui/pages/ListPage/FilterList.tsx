@@ -1,4 +1,5 @@
-import { useRouter, usePathname } from 'next/navigation'
+'use client'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { type FormEvent, useId, useState, type ReactNode } from 'react'
 
 import { ButtonGroup, Button } from '@keystar/ui/button'
@@ -10,7 +11,7 @@ import { Heading, Text } from '@keystar/ui/typography'
 import type { FieldMeta, ListMeta } from '../../../../types'
 import { Tag } from './Tag'
 import type { Filter } from './useFilters'
-import { useQueryParams } from '../../../../admin-ui/router'
+import { toQueryParams } from './lib'
 
 export function FilterList({ filters, list }: { filters: Filter[]; list: ListMeta }) {
   return (
@@ -26,7 +27,8 @@ export function FilterList({ filters, list }: { filters: Filter[]; list: ListMet
 function FilterTag({ filter, field }: { filter: Filter; field: FieldMeta }) {
   const router = useRouter()
   const pathname = usePathname()
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
   // doing this because returning a string from Label will be VERY common
   // but https://github.com/microsoft/TypeScript/issues/21699 isn't resolved yet
   const Label = field.controller.filter!.Label as (props: {
@@ -36,7 +38,7 @@ function FilterTag({ filter, field }: { filter: Filter; field: FieldMeta }) {
   }) => ReactNode
   const onRemove = () => {
     const { [`!${filter.field}_${filter.type}`]: _ignore, ...queryToKeep } = query
-    router.push(`${pathname}${toQueryString(queryToKeep)}`)
+    router.push(`${pathname}${toQueryParams(queryToKeep)}`)
   }
   const tagElement = (
     <Tag onRemove={onRemove}>
@@ -76,7 +78,8 @@ function FilterDialog({
 }) {
   const formId = useId()
   const router = useRouter()
-  const { query, toQueryString } = useQueryParams()
+  const searchParams = useSearchParams()
+  const query = Object.fromEntries(searchParams.entries())
   const [value, setValue] = useState(filter.value)
 
   const onSubmit = (event: FormEvent) => {
@@ -91,10 +94,12 @@ function FilterDialog({
       return
     }
 
-    router.push(toQueryString({
+    router.push(
+      toQueryParams({
         ...query,
         [`!${filter.field}_${filter.type}`]: JSON.stringify(value),
-      }))
+      })
+    )
     onDismiss()
   }
 
