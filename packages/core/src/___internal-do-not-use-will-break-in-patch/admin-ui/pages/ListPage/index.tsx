@@ -786,8 +786,8 @@ function replace(
   return s
 }
 
-type ActionErrors = Record<string, GraphQLFormattedError[]>
-type ActionErrorResult = {
+export type ActionErrors = Record<string, GraphQLFormattedError[]>
+export type ActionErrorResult = {
   action: ActionMeta
   errors: ActionErrors
 }
