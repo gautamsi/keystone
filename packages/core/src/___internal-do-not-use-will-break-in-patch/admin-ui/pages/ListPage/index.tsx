@@ -254,13 +254,15 @@ function getColumns(list: ListMeta, query: ParsedUrlQueryInput): string[] {
   return params
 }
 
-export const getListPage = (props: ListPageProps) => () => <ListPage {...props} />
+export function GetListPage(props: ListPageProps) {
+  const { listKey } = use<{ listKey: string }>(props.params)
+  return <ListPage listKey={listKey} />
+}
 
 type Selection = Set<string | number> | 'all'
-export function ListPage({ params }: ListPageProps) {
+export function ListPage({ listKey: _listKey }: { listKey: string }) {
   const { adminPath, listsKeyByPath } = useKeystone()
-  const _params = use<{ listKey: string }>(params)
-  const listKey = listsKeyByPath[_params.listKey]
+  const listKey = listsKeyByPath[_listKey]
 
   const localStorageListKey = `keystone.list.${listKey}.list.page.info`
 
@@ -521,7 +523,10 @@ export function ListPage({ params }: ListPageProps) {
               <Tooltip>Reset to defaults</Tooltip>
             </TooltipTrigger>
           ) : null}
-          {/*isReady && */ loading && <ProgressCircle aria-label="Loading…" size="small" isIndeterminate />}
+          {
+            /*isReady && */
+            loading && <ProgressCircle aria-label="Loading…" size="small" isIndeterminate />
+          }
         </HStack>
 
         {filters.length ? (
