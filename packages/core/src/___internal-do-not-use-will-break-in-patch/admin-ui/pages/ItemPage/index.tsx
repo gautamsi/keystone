@@ -311,12 +311,16 @@ function ItemForm({
 }
 
 export function ItemPage({ params }: ItemPageProps) {
-  const { listsKeyByPath, adminPath } = useKeystone()
-  const _params = use<{ listKey: string; id: string }>(params)
-  const listKey = listsKeyByPath[_params.listKey]
+  const { listKey, id } = use<{ listKey: string; id: string }>(params)
+  return <ItemPageInternal id={id} listKey={listKey} />
+}
+
+export function ItemPageInternal({ id, listKey: _listKey }: { id: string; listKey: string }) {
+  const { adminPath, listsKeyByPath } = useKeystone()
+  const listKey = listsKeyByPath[_listKey]
   const list = useList(listKey)
   const router = useRouter()
-  const id_ = _params.id as string
+  const id_ = id as string
   const [itemId] = Array.isArray(id_) ? id_ : [id_]
   const { data, error, loading, refetch } = useListItem(listKey, itemId ?? null)
   const item = data?.item

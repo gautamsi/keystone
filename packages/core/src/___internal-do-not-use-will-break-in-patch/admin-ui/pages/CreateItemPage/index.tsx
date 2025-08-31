@@ -10,17 +10,16 @@ import { Fields } from '../../../../admin-ui/utils'
 import { useCreateItem } from '../../../../admin-ui/utils/useCreateItem'
 import { BaseToolbar, ColumnLayout, ItemPageHeader } from '../ItemPage/common'
 
-export const getCreateItemPage = (props: Parameters<typeof CreateItemPage>[0]) => () => (
-  <CreateItemPage {...props} />
-)
-
 export function CreateItemPage({ params }: { params: Usable<{ listKey: string }> }) {
-  const { listsKeyByPath } = useKeystone()
   const _params = use<{ listKey: string }>(params)
-  const list = useList(listsKeyByPath[_params.listKey])
+  return <CreateItemPageInternal listKey={_params.listKey} />
+}
+
+export function CreateItemPageInternal({ listKey }: { listKey: string }) {
+  const { adminPath, listsKeyByPath } = useKeystone()
+  const list = useList(listsKeyByPath[listKey])
   const createItem = useCreateItem(list)
   const router = useRouter()
-  const { adminPath } = useKeystone()
 
   return (
     <PageContainer
