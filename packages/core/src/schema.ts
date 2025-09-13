@@ -123,6 +123,7 @@ export function config<TypeInfo extends BaseKeystoneTypeInfo>(
       onConnect: config.db.onConnect ?? noop,
       prismaClientPath: config.db?.prismaClientPath ?? '@prisma/client',
       prismaSchemaPath: config.db?.prismaSchemaPath ?? 'schema.prisma',
+      usePrismaNativeClient: config.db?.usePrismaNativeClient ?? false,
       idField: config.db?.idField ?? defaultIdField,
       enableLogging:
         config.db.enableLogging === true

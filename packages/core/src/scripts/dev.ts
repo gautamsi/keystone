@@ -233,7 +233,7 @@ export async function dev(
             log('⚠️ Skipping database schema push')
           }
 
-          const prismaClientModule = require(paths.prisma)
+          const prismaClientModule = await import (paths.prisma)
           const keystone = system.getKeystone(prismaClientModule)
 
           log('✨ Connecting to the database')

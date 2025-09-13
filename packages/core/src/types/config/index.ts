@@ -46,6 +46,7 @@ export type KeystoneConfigPre<TypeInfo extends BaseKeystoneTypeInfo = BaseKeysto
     idField?: IdFieldConfig
     prismaClientPath?: string
     prismaSchemaPath?: string
+    usePrismaNativeClient?: boolean
 
     extendPrismaSchema?: (schema: string) => string
     extendPrismaClient?: (client: any) => any
